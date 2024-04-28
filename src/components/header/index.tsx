@@ -7,6 +7,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Separator } from '@/components/ui/separator';
+import Link from 'next/link';
 import { LogoutIcon, SettingsIcon, UserIcon } from '../icons';
 import Navigation from '../navigation';
 
@@ -26,10 +27,12 @@ export default function Header() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className='w-36'>
-            <DropdownMenuItem>
-              <UserIcon className='w-4 h-4 mr-2' />
-              Meu Perfil
-            </DropdownMenuItem>
+            <Link href='/account'>
+              <DropdownMenuItem>
+                <UserIcon className='w-4 h-4 mr-2' />
+                Meu Perfil
+              </DropdownMenuItem>
+            </Link>
             <DropdownMenuItem>
               <SettingsIcon className='w-4 h-4 mr-2' />
               Configurações
