@@ -19,7 +19,7 @@ export default function Settings() {
         <h1 className='font-semibold text-3xl'>Configurações da Conta</h1>
       </div>
       <div className='grid md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr] items-start gap-6 max-w-7xl w-full mx-auto '>
-        <nav className='text-sm text-gray-500 grid gap-4 dark:text-gray-400 sticky top-4 '>
+        <nav className='text-sm text-gray-500 hidden gap-4 dark:text-gray-400 sticky top-4 md:grid '>
           <Link
             className='font-semibold text-gray-900 dark:text-gray-50'
             href='#'
