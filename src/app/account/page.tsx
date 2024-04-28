@@ -137,11 +137,11 @@ export default function Account() {
             <CardContent className='grid gap-4'>
               <div>
                 <Label htmlFor='name'>Nome</Label>
-                <Input defaultValue='Jared Palmer' id='name' />
+                <Input defaultValue='Isaac Santos' id='name' />
               </div>
               <div>
                 <Label htmlFor='email'>Email</Label>
-                <Input defaultValue='jared@example.com' id='email' />
+                <Input defaultValue='isaacsantos@example.com' id='email' />
               </div>
               <div>
                 <Label htmlFor='password'>Senha</Label>
