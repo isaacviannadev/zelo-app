@@ -21,8 +21,8 @@ import { Textarea } from '@/components/ui/textarea';
 
 export default function Account() {
   return (
-    <main className='flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10'>
-      <div className='grid gap-4 lg:grid-cols-[1fr_400px]'>
+    <main className='flex min-h-[calc(100vh_-_theme(spacing.16))] bg-gray-100/40 flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10 dark:bg-gray-800/40 '>
+      <div className='grid gap-4 lg:grid-cols-[1fr_400px] mx-auto max-w-7xl'>
         <div className='flex flex-col gap-4'>
           <Card>
             <CardHeader>

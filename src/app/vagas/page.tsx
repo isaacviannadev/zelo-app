@@ -13,8 +13,8 @@ import Link from 'next/link';
 
 export default function Vagas() {
   return (
-    <section className='w-full py-12'>
-      <div className='container grid gap-6 md:gap-8 px-4 md:px-6 max-w-xl mx-auto lg:max-w-none'>
+    <section className='flex min-h-[calc(100vh_-_theme(spacing.16))] bg-gray-100/40 flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10 dark:bg-gray-800/40'>
+      <div className='container grid gap-6 md:gap-8 px-4 md:px-6 max-w-xl mx-auto lg:max-w-7xl'>
         <div className='flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8'>
           <div className='grid gap-1'>
             <h1 className='text-2xl font-bold tracking-tight'>

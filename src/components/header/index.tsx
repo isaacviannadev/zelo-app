@@ -33,10 +33,12 @@ export default function Header() {
                 Meu Perfil
               </DropdownMenuItem>
             </Link>
-            <DropdownMenuItem>
-              <SettingsIcon className='w-4 h-4 mr-2' />
-              Configurações
-            </DropdownMenuItem>
+            <Link href='/settings'>
+              <DropdownMenuItem>
+                <SettingsIcon className='w-4 h-4 mr-2' />
+                Configurações
+              </DropdownMenuItem>
+            </Link>
             <Separator />
             <DropdownMenuItem>
               <LogoutIcon className='w-4 h-4 mr-2' />
