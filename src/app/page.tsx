@@ -1,5 +1,5 @@
-import Search from './search/page';
+import Vagas from './vagas/page';
 
 export default function Home() {
-  return <Search />;
+  return <Vagas />;
 }
