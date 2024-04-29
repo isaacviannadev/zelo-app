@@ -46,7 +46,7 @@ export default function Navigation() {
           }`}
           href='/search'
         >
-          Buscar
+          Encontrar Cuidadores
         </Link>
       </nav>
     </>

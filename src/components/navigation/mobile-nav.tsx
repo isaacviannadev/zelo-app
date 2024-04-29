@@ -69,7 +69,7 @@ export default function MobileNav({
             }`}
             href='/search'
           >
-            <SheetClose>Buscar</SheetClose>
+            <SheetClose>Encontrar Cuidadores</SheetClose>
           </Link>
         </nav>
       </SheetContent>
