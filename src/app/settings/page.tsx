@@ -33,7 +33,9 @@ export default function Settings() {
         <div className='grid gap-6'>
           <Card>
             <CardHeader>
-              <CardTitle>Informações de Contato</CardTitle>
+              <CardTitle>
+                <h1>Informações de Contato</h1>
+              </CardTitle>
               <CardDescription>
                 Atualize suas informações de contato.
               </CardDescription>
@@ -58,7 +60,9 @@ export default function Settings() {
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>Disponibilidade</CardTitle>
+              <CardTitle>
+                <h1>Disponibilidade</h1>
+              </CardTitle>
               <CardDescription>
                 Selecione os dias e horários que você está disponível para
                 trabalhar.
@@ -118,7 +122,9 @@ export default function Settings() {
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>Preferências</CardTitle>
+              <CardTitle>
+                <h1>Preferências</h1>
+              </CardTitle>
               <CardDescription>
                 Selecione suas preferências de trabalho.
               </CardDescription>
@@ -159,7 +165,9 @@ export default function Settings() {
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>Notificações</CardTitle>
+              <CardTitle>
+                <h1>Notificações</h1>
+              </CardTitle>
               <CardDescription>
                 Escolha o que você deseja ser notificado.
               </CardDescription>

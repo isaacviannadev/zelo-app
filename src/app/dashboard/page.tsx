@@ -79,7 +79,9 @@ export default function Dashboard() {
         <div className='grid gap-4 md:grid-cols-2 max-w-7xl'>
           <Card>
             <CardHeader>
-              <CardTitle>Perfis de Cuidadores</CardTitle>
+              <CardTitle>
+                <h1>Perfis de Cuidadores</h1>
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className='grid gap-4'>
@@ -124,7 +126,9 @@ export default function Dashboard() {
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>Mensagens Recebidas</CardTitle>
+              <CardTitle>
+                <h1>Mensagens Recebidas</h1>
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className='grid gap-4'>

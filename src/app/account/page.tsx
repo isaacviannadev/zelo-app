@@ -8,7 +8,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
   Select,
@@ -29,10 +28,12 @@ export default function Account() {
               <div className='flex items-center gap-4'>
                 <Avatar className='h-16 w-16'>
                   <AvatarImage alt='@username' src='/placeholder-avatar.jpg' />
-                  <AvatarFallback>IS</AvatarFallback>
+                  <AvatarFallback>IV</AvatarFallback>
                 </Avatar>
                 <div>
-                  <CardTitle>Isaac Santos</CardTitle>
+                  <CardTitle>
+                    <h1>Isaac dos Santos Vianna</h1>
+                  </CardTitle>
                   <p className='text-sm text-gray-500 dark:text-gray-400'>
                     Cuidador de Idosos
                   </p>
@@ -44,7 +45,7 @@ export default function Account() {
                 <div>
                   <div className='font-semibold'>Contato</div>
                   <div className='text-gray-500 dark:text-gray-400'>
-                    isaacsantos@example.com
+                    isaacvianna@example.com
                   </div>
                   <div className='text-gray-500 dark:text-gray-400'>
                     (61) 99999-9999
@@ -64,7 +65,9 @@ export default function Account() {
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>Histórico de Trabalhos</CardTitle>
+              <CardTitle>
+                <h1>Histórico de Trabalhos</h1>
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className='grid gap-4'>
@@ -103,7 +106,9 @@ export default function Account() {
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>Certificados</CardTitle>
+              <CardTitle>
+                <h1>Certificados</h1>
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className='grid gap-4'>
@@ -132,61 +137,9 @@ export default function Account() {
         <div className='flex flex-col gap-4'>
           <Card>
             <CardHeader>
-              <CardTitle>Configurações de Conta</CardTitle>
-            </CardHeader>
-            <CardContent className='grid gap-4'>
-              <div>
-                <Label htmlFor='name'>Nome</Label>
-                <Input defaultValue='Isaac Santos' id='name' />
-              </div>
-              <div>
-                <Label htmlFor='email'>Email</Label>
-                <Input defaultValue='isaacsantos@example.com' id='email' />
-              </div>
-              <div>
-                <Label htmlFor='password'>Senha</Label>
-                <Input id='password' type='password' />
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button>Salvar Alterações</Button>
-            </CardFooter>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle>Preferências e Disponibilidade</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className='grid gap-4'>
-                <div>
-                  <Label htmlFor='availability'>Disponibilidade</Label>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder='Selecione sua disponibilidade' />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value='full-time'>Tempo Integral</SelectItem>
-                      <SelectItem value='part-time'>Meio Período</SelectItem>
-                      <SelectItem value='weekends'>Finais de Semana</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <Label htmlFor='preferences'>Preferências</Label>
-                  <Textarea
-                    id='preferences'
-                    placeholder='Descreva suas preferências de trabalho'
-                  />
-                </div>
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button>Salvar Preferências</Button>
-            </CardFooter>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle>Agenda da Semana</CardTitle>
+              <CardTitle>
+                <h1>Agenda da Semana</h1>
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className='grid gap-4'>
@@ -241,6 +194,41 @@ export default function Account() {
                 </div>
               </div>
             </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>
+                <h1>Preferências e Disponibilidade</h1>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className='grid gap-4'>
+                <div>
+                  <Label htmlFor='availability'>Disponibilidade</Label>
+                  <Select>
+                    <SelectTrigger>
+                      <SelectValue placeholder='Selecione sua disponibilidade' />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value='full-time'>Tempo Integral</SelectItem>
+                      <SelectItem value='part-time'>Meio Período</SelectItem>
+                      <SelectItem value='weekends'>Finais de Semana</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor='preferences'>Preferências</Label>
+                  <Textarea
+                    id='preferences'
+                    placeholder='Descreva suas preferências de trabalho'
+                  />
+                </div>
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Button>Salvar Preferências</Button>
+            </CardFooter>
           </Card>
         </div>
       </div>
