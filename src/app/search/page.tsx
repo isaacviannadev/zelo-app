@@ -1,14 +1,7 @@
 import { ArrowUpDownIcon, SearchIcon, StarIcon } from '@/components/icons';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,8 +10,9 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import SearchFilters from './search-filters';
 
 export default function Search() {
   return (
@@ -34,7 +28,7 @@ export default function Search() {
                 Encontre o profissional ideal para suas necessidades
               </p>
             </div>
-            <form className='flex-1 ml-auto w-1/3 sm:flex-initial'>
+            <form className='flex-1 w-full md:ml-auto md:w-1/3 sm:flex-initial '>
               <div className='relative'>
                 <SearchIcon className='absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400' />
                 <Input
@@ -46,141 +40,23 @@ export default function Search() {
             </form>
           </div>
           <div className='grid md:grid-cols-[300px_1fr] gap-6 md:gap-8'>
-            <div className='flex flex-col gap-4 items-start py-2'>
-              <Accordion className='w-full' collapsible type='single'>
-                <AccordionItem value='field'>
-                  <AccordionTrigger className='text-base'>
-                    Especialidade
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <div className='grid gap-2'>
-                      <Label className='flex items-center gap-2'>
-                        <Checkbox id='field-aux-nurse' />
-                        Auxiliar de Enfermagem Certificado(a)
-                      </Label>
-                      <Label className='flex items-center gap-2'>
-                        <Checkbox id='field-homecare' />
-                        Auxiliar de Saúde Domiciliar
-                      </Label>
-                      <Label className='flex items-center gap-2'>
-                        <Checkbox id='field-nurse' />
-                        Enfermeiro(a) Registrado(a)
-                      </Label>
-                      <Label className='flex items-center gap-2'>
-                        <Checkbox id='field-physical-therapist' />
-                        Fisioterapeuta
-                      </Label>
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value='location'>
-                  <AccordionTrigger className='text-base'>
-                    Localização
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <div className='grid gap-2'>
-                      <Label className='flex items-center gap-2 font-normal'>
-                        <Checkbox id='location-rj' />
-                        Rio de Janeiro
-                      </Label>
-                      <Label className='flex items-center gap-2 font-normal'>
-                        <Checkbox id='location-sp' />
-                        São Paulo
-                      </Label>
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value='experience'>
-                  <AccordionTrigger className='text-base'>
-                    Experiência
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <div className='grid gap-2'>
-                      <Label className='flex items-center gap-2 font-normal'>
-                        <Checkbox id='experience-entry' />
-                        Até 2 anos
-                      </Label>
-                      <Label className='flex items-center gap-2 font-normal'>
-                        <Checkbox id='experience-mid' />
-                        Mais de 2 anos
-                      </Label>
-                      <Label className='flex items-center gap-2 font-normal'>
-                        <Checkbox id='experience-senior' />
-                        Mais de 5 anos
-                      </Label>
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value='rating'>
-                  <AccordionTrigger className='text-base'>
-                    Avaliação
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <div className='grid gap-2'>
-                      <Label className='flex items-center gap-2 font-normal'>
-                        <Checkbox id='rating-0' />
-                        <div className='flex items-center gap-0.5'>
-                          <StarIcon className='w-4 h-4 fill-muted   stroke-brand-700' />
-                          <StarIcon className='w-4 h-4 fill-muted   stroke-brand-700' />
-                          <StarIcon className='w-4 h-4 fill-muted   stroke-brand-700' />
-                          <StarIcon className='w-4 h-4 fill-muted   stroke-brand-700' />
-                          <StarIcon className='w-4 h-4 fill-muted   stroke-brand-700' />
-                        </div>
-                      </Label>
-                      <Label className='flex items-center gap-2 font-normal'>
-                        <Checkbox id='rating-1' />
-                        <div className='flex items-center gap-0.5'>
-                          <StarIcon className='w-4 h-4 fill-brand-400  stroke-brand-700' />
-                          <StarIcon className='w-4 h-4 fill-muted   stroke-brand-700' />
-                          <StarIcon className='w-4 h-4 fill-muted   stroke-brand-700' />
-                          <StarIcon className='w-4 h-4 fill-muted   stroke-brand-700' />
-                          <StarIcon className='w-4 h-4 fill-muted   stroke-brand-700' />
-                        </div>
-                      </Label>
-                      <Label className='flex items-center gap-2 font-normal'>
-                        <Checkbox id='rating-2' />
-                        <div className='flex items-center gap-0.5'>
-                          <StarIcon className='w-4 h-4 fill-brand-400 stroke-brand-700' />
-                          <StarIcon className='w-4 h-4 fill-brand-400  stroke-brand-700' />
-                          <StarIcon className='w-4 h-4 fill-muted   stroke-brand-700' />
-                          <StarIcon className='w-4 h-4 fill-muted   stroke-brand-700' />
-                          <StarIcon className='w-4 h-4 fill-muted   stroke-brand-700' />
-                        </div>
-                      </Label>
-                      <Label className='flex items-center gap-2 font-normal'>
-                        <Checkbox id='rating-3' />
-                        <div className='flex items-center gap-0.5'>
-                          <StarIcon className='w-4 h-4 fill-brand-400 stroke-brand-700' />
-                          <StarIcon className='w-4 h-4 fill-brand-400  stroke-brand-700' />
-                          <StarIcon className='w-4 h-4 fill-brand-400  stroke-brand-700' />
-                          <StarIcon className='w-4 h-4 fill-muted   stroke-brand-700' />
-                          <StarIcon className='w-4 h-4 fill-muted   stroke-brand-700' />
-                        </div>
-                      </Label>
-                      <Label className='flex items-center gap-2 font-normal'>
-                        <Checkbox id='rating-4' />
-                        <div className='flex items-center gap-0.5'>
-                          <StarIcon className='w-4 h-4 fill-brand-400 stroke-brand-700' />
-                          <StarIcon className='w-4 h-4 fill-brand-400  stroke-brand-700' />
-                          <StarIcon className='w-4 h-4 fill-brand-400  stroke-brand-700' />
-                          <StarIcon className='w-4 h-4 fill-brand-400  stroke-brand-700' />
-                          <StarIcon className='w-4 h-4 fill-muted   stroke-brand-700' />
-                        </div>
-                      </Label>
-                      <Label className='flex items-center gap-2 font-normal'>
-                        <Checkbox id='rating-5' />
-                        <div className='flex items-center gap-0.5'>
-                          <StarIcon className='w-4 h-4 fill-brand-400 stroke-brand-700' />
-                          <StarIcon className='w-4 h-4 fill-brand-400  stroke-brand-700' />
-                          <StarIcon className='w-4 h-4 fill-brand-400  stroke-brand-700' />
-                          <StarIcon className='w-4 h-4 fill-brand-400  stroke-brand-700' />
-                          <StarIcon className='w-4 h-4 fill-brand-400  stroke-brand-700' />
-                        </div>
-                      </Label>
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
+            <div className='hidden flex-col gap-4 items-start py-2 md:flex'>
+              <SearchFilters />
+            </div>
+            <div className='flex flex-col gap-4 items-start py-2 md:hidden'>
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant='outline' size={'sm'} className='w-full'>
+                    <span className='inline-flex gap-1'>Filtros</span>
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side={'bottom'}>
+                  <SearchFilters />
+                  <Button variant={'brand'} size={'sm'} className='w-full mt-8'>
+                    Aplicar Filtros
+                  </Button>
+                </SheetContent>
+              </Sheet>
             </div>
             <div className='grid gap-6'>
               <div className='flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8'>
@@ -221,7 +97,10 @@ export default function Search() {
               <div className='grid gap-6'>
                 <div className='flex gap-4 '>
                   <Avatar className='w-10 h-10 border'>
-                    <AvatarImage alt='@shadcn' src='/placeholder-user.jpg' />
+                    <AvatarImage
+                      alt='avatar image'
+                      src='/placeholder-user.jpg'
+                    />
                     <AvatarFallback>MS</AvatarFallback>
                   </Avatar>
                   <div className='grid gap-4 w-full'>
@@ -257,7 +136,10 @@ export default function Search() {
                 <Separator />
                 <div className='flex gap-4'>
                   <Avatar className='w-10 h-10 border'>
-                    <AvatarImage alt='@shadcn' src='/placeholder-user.jpg' />
+                    <AvatarImage
+                      alt='avatar image'
+                      src='/placeholder-user.jpg'
+                    />
                     <AvatarFallback>JA</AvatarFallback>
                   </Avatar>
                   <div className='grid gap-4 w-full'>
