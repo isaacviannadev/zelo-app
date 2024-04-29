@@ -49,7 +49,7 @@ export default function MobileNav({
 
           <Link
             className={`text-gray-500 dark:text-gray-400 ${
-              isHome && 'text-black font-extrabold'
+              isHome && 'text-brand-600 font-bold'
             }`}
             href='/'
           >
@@ -57,7 +57,7 @@ export default function MobileNav({
           </Link>
           <Link
             className={`text-gray-500 dark:text-gray-400 ${
-              isDashboard && 'text-black font-extrabold'
+              isDashboard && 'text-brand-600 font-bold'
             }`}
             href='/dashboard'
           >
@@ -65,7 +65,7 @@ export default function MobileNav({
           </Link>
           <Link
             className={`text-gray-500 dark:text-gray-400 ${
-              isSearch && 'text-black font-extrabold'
+              isSearch && 'text-brand-600 font-bold'
             }`}
             href='/search'
           >

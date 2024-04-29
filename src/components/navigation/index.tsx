@@ -34,7 +34,7 @@ export default function Navigation() {
         </Link>
         <Link
           className={`text-gray-500 dark:text-gray-400 ${
-            isDashboard && 'text-black font-extrabold'
+            isDashboard && 'text-brand-600 font-bold'
           }`}
           href='/dashboard'
         >
@@ -42,7 +42,7 @@ export default function Navigation() {
         </Link>
         <Link
           className={`text-gray-500 dark:text-gray-400 ${
-            isSearch && 'text-black font-extrabold'
+            isSearch && 'text-brand-600 font-bold'
           }`}
           href='/search'
         >
