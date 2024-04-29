@@ -1,5 +1,5 @@
 'use client';
-import Job from '@/components/job';
+import Job from '@/components/job-card';
 import { Button } from '@/components/ui/button';
 import {
   Select,
@@ -161,7 +161,7 @@ export default function Vagas() {
           </div>
         </div>
         <Separator />
-        <div className='grid lg:grid-cols-3 gap-8'>
+        <div className='grid lg:grid-cols-2 gap-8'>
           {filteredJobs.length > 0 ? (
             filteredJobs.map((job) => <Job key={job.id} {...job} />)
           ) : (

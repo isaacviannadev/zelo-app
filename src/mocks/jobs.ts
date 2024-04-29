@@ -1,4 +1,4 @@
-import { JobProps } from '@/components/job';
+import { JobProps } from '@/components/job-card';
 
 export const jobs: JobProps[] = [
   {
