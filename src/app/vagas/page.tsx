@@ -94,7 +94,7 @@ export default function Vagas() {
         </div>
         <div>
           <h4 className='text-xl font-bold tracking-tight'>Filtros</h4>
-          <div className='flex flex-col sm:flex-row gap-4 items-center'>
+          <div className='flex flex-col sm:flex-row gap-4 lg:items-center'>
             <Select
               onValueChange={(value) => setLocation(value)}
               value={location}
@@ -155,7 +155,7 @@ export default function Vagas() {
                 </SelectGroup>
               </SelectContent>
             </Select>
-            <Button onClick={handleClearFilters} size={'sm'}>
+            <Button onClick={handleClearFilters} size={'sm'} variant={'link'}>
               Limpar filtros
             </Button>
           </div>
