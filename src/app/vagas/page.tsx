@@ -1,5 +1,6 @@
 'use client';
 import Job from '@/components/job';
+import { Button } from '@/components/ui/button';
 import {
   Select,
   SelectContent,
@@ -18,18 +19,6 @@ export default function Vagas() {
   const [location, setLocation] = useState('');
   const [jobType, setJobType] = useState('');
   const [contractType, setContractType] = useState('');
-
-  const handleLocationChange = (location: string) => {
-    setLocation(location);
-  };
-
-  const handleJobTypeChange = (jobType: string) => {
-    setJobType(jobType);
-  };
-
-  const handleContractTypeChange = (contractType: string) => {
-    setContractType(contractType);
-  };
 
   const filteredJobs = jobs.filter((job) => {
     if (location && jobType && contractType) {
@@ -83,6 +72,12 @@ export default function Vagas() {
     return acc;
   }, [] as string[]);
 
+  const handleClearFilters = () => {
+    setLocation('');
+    setJobType('');
+    setContractType('');
+  };
+
   return (
     <section className='flex min-h-[calc(100vh_-_theme(spacing.16))] bg-gray-100/40 flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10 dark:bg-gray-800/40'>
       <div className='container grid gap-6 md:gap-8 px-4 md:px-6 max-w-xl mx-auto lg:max-w-7xl'>
@@ -99,8 +94,11 @@ export default function Vagas() {
         </div>
         <div>
           <h4 className='text-xl font-bold tracking-tight'>Filtros</h4>
-          <div className='flex flex-col sm:flex-row gap-4'>
-            <Select onValueChange={(value) => handleLocationChange(value)}>
+          <div className='flex flex-col sm:flex-row gap-4 items-center'>
+            <Select
+              onValueChange={(value) => setLocation(value)}
+              value={location}
+            >
               <SelectTrigger>
                 <SelectValue placeholder='Cidade' />
               </SelectTrigger>
@@ -118,7 +116,10 @@ export default function Vagas() {
                 </SelectGroup>
               </SelectContent>
             </Select>
-            <Select onValueChange={(value) => handleJobTypeChange(value)}>
+            <Select
+              onValueChange={(value) => setJobType(value)}
+              value={jobType}
+            >
               <SelectTrigger>
                 <SelectValue placeholder='Tipo de serviço' />
               </SelectTrigger>
@@ -136,7 +137,10 @@ export default function Vagas() {
                 </SelectGroup>
               </SelectContent>
             </Select>
-            <Select onValueChange={(value) => handleContractTypeChange(value)}>
+            <Select
+              onValueChange={(value) => setContractType(value)}
+              value={contractType}
+            >
               <SelectTrigger>
                 <SelectValue placeholder='Regime de contratação' />
               </SelectTrigger>
@@ -151,6 +155,9 @@ export default function Vagas() {
                 </SelectGroup>
               </SelectContent>
             </Select>
+            <Button onClick={handleClearFilters} size={'sm'}>
+              Limpar filtros
+            </Button>
           </div>
         </div>
         <Separator />
