@@ -26,7 +26,7 @@ export default function Job({
   contract,
 }: JobProps) {
   return (
-    <Card className='h-full'>
+    <Card className='hover:shadow-md '>
       <CardHeader>
         <h2 className='font-semibold  text-center'>{title}</h2>
         <div className='text-center'>
