@@ -1,4 +1,5 @@
 import { AwardIcon, StarIcon } from '@/components/icons';
+import PremiumBanner from '@/components/premium-banner';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
@@ -135,6 +136,7 @@ export default function Account() {
           </Card>
         </div>
         <div className='flex flex-col gap-4'>
+          <PremiumBanner  />
           <Card>
             <CardHeader>
               <CardTitle>

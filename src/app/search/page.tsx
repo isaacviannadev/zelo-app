@@ -95,7 +95,7 @@ export default function Search() {
                 </DropdownMenu>
               </div>
               <div className='grid gap-6'>
-                <div className='flex gap-4 '>
+                <div className='flex flex-col gap-4 md:flex-row '>
                   <Avatar className='w-10 h-10 border'>
                     <AvatarImage
                       alt='avatar image'
@@ -104,14 +104,14 @@ export default function Search() {
                     <AvatarFallback>MS</AvatarFallback>
                   </Avatar>
                   <div className='grid gap-4 w-full'>
-                    <div className='flex gap-4 items-start'>
+                    <div className='flex flex-col gap-4 items-start md:flex-row'>
                       <div className='grid gap-0.5 text-sm'>
                         <h3 className='font-semibold'>Marta Santos</h3>
                         <div className='text-gray-500 dark:text-gray-400'>
                           Cuidadora de Idosos Certificada
                         </div>
                       </div>
-                      <div className='flex items-center gap-0.5 ml-auto'>
+                      <div className='flex items-center gap-0.5 md:ml-auto'>
                         <StarIcon className='w-5 h-5 fill-brand-200 stroke-brand-700' />
                         <StarIcon className='w-5 h-5 fill-brand-200 stroke-brand-700' />
                         <StarIcon className='w-5 h-5 fill-brand-200 stroke-brand-700' />
@@ -126,7 +126,7 @@ export default function Search() {
                         Alzheimer.
                       </p>
                     </div>
-                    <div className='flex gap-2'>
+                    <div className='flex flex-wrap gap-2'>
                       <Badge variant='secondary'>Cuidadora</Badge>
                       <Badge variant='secondary'>Especializado</Badge>
                       <Badge variant='careClub'>CareClub</Badge>
@@ -134,7 +134,7 @@ export default function Search() {
                   </div>
                 </div>
                 <Separator />
-                <div className='flex gap-4'>
+                <div className='flex flex-col md:flex-row gap-4'>
                   <Avatar className='w-10 h-10 border'>
                     <AvatarImage
                       alt='avatar image'
@@ -143,14 +143,14 @@ export default function Search() {
                     <AvatarFallback>JA</AvatarFallback>
                   </Avatar>
                   <div className='grid gap-4 w-full'>
-                    <div className='flex gap-4 items-start'>
+                    <div className='flex flex-col gap-4 items-start md:flex-row'>
                       <div className='grid gap-0.5 text-sm'>
                         <h3 className='font-semibold'>Jorge Alves</h3>
                         <div className='text-gray-500 dark:text-gray-400'>
                           Fisioterapeuta Registrado
                         </div>
                       </div>
-                      <div className='flex items-center gap-0.5 ml-auto'>
+                      <div className='flex items-center gap-0.5 md:ml-auto'>
                         <StarIcon className='w-5 h-5 fill-brand-200 stroke-brand-700' />
                         <StarIcon className='w-5 h-5 fill-brand-200 stroke-brand-700' />
                         <StarIcon className='w-5 h-5 fill-brand-200 stroke-brand-700' />
@@ -165,7 +165,7 @@ export default function Search() {
                         fisioterapia domiciliar.
                       </p>
                     </div>
-                    <div className='flex gap-2'>
+                    <div className='flex flex-wrap gap-2'>
                       <Badge variant='secondary'>Fisioterapeuta</Badge>
                       <Badge variant='secondary'>Especializado</Badge>
                       <Badge variant='premium'>Assinante</Badge>
