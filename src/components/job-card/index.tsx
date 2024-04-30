@@ -26,18 +26,19 @@ export default function Job({
   contract,
 }: JobProps) {
   return (
-    <Card className='hover:shadow-md '>
+    <Card className='hover:shadow-md  '>
       <CardHeader>
-        <h2 className='font-semibold  text-center'>{title}</h2>
+        <h2 className='font-semibold text-xl text-center'>{title}</h2>
         <div className='text-center'>
           <Badge variant={'outline'}>{contract}</Badge>
         </div>
       </CardHeader>
-      <CardContent className='grid gap-6 relative group'>
+
+      <CardContent className='grid gap-6 relative group '>
         <Link className='absolute inset-0 z-10' href='#'>
           <span className='sr-only'>Ver serviço</span>
         </Link>
-        <div className='grid gap-1'>
+        <div className='grid gap-2'>
           <p className='text-sm leading-none'>{description}</p>
           <p className='text-sm text-gray-500 dark:text-gray-400'>{location}</p>
           <p className='text-sm text-gray-500 dark:text-gray-400'>{salary}</p>
