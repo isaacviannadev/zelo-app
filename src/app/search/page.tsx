@@ -95,7 +95,7 @@ export default function Search() {
                 </DropdownMenu>
               </div>
               <div className='grid gap-6'>
-                <div className='flex flex-col gap-4 md:flex-row '>
+                <div className='flex flex-col gap-2 md:gap-4  md:flex-row '>
                   <Avatar className='w-10 h-10 border'>
                     <AvatarImage
                       alt='avatar image'
@@ -119,7 +119,7 @@ export default function Search() {
                         <StarIcon className='w-5 h-5 fill-muted stroke-brand-700' />
                       </div>
                     </div>
-                    <div className='text-sm leading-loose text-gray-500 dark:text-gray-400'>
+                    <div className='text-sm leading-4 md:leading-loose text-gray-500 dark:text-gray-400'>
                       <p>
                         Cuidadora de idosos com mais de 3 anos de experiência.
                         Especialista em cuidados paliativos e pacientes com
@@ -134,7 +134,7 @@ export default function Search() {
                   </div>
                 </div>
                 <Separator />
-                <div className='flex flex-col md:flex-row gap-4'>
+                <div className='flex flex-col md:flex-row gap-2 md:gap-4'>
                   <Avatar className='w-10 h-10 border'>
                     <AvatarImage
                       alt='avatar image'
@@ -158,7 +158,7 @@ export default function Search() {
                         <StarIcon className='w-5 h-5 fill-muted stroke-brand-700' />
                       </div>
                     </div>
-                    <div className='text-sm leading-loose text-gray-500 dark:text-gray-400'>
+                    <div className='text-sm leading-4 md:leading-loose text-gray-500 dark:text-gray-400'>
                       <p>
                         Fisioterapeuta com mais de 5 anos de experiência.
                         Especialista em reabilitação pós-operatória e
