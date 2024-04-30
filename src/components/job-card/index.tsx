@@ -28,8 +28,8 @@ export default function Job({
   return (
     <Card className='hover:shadow-md  '>
       <CardHeader>
-        <h2 className='font-semibold text-xl text-center'>{title}</h2>
-        <div className='text-center'>
+        <h2 className='font-semibold text-xl md:text-center'>{title}</h2>
+        <div className='md:text-center'>
           <Badge variant={'outline'}>{contract}</Badge>
         </div>
       </CardHeader>
