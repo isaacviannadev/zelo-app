@@ -6,6 +6,7 @@ import {
   SheetContent,
   SheetTrigger,
 } from '@/components/ui/sheet';
+import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -48,25 +49,25 @@ export default function MobileNav({
           </Link>
 
           <Link
-            className={`text-gray-500 dark:text-gray-400 ${
-              isHome && 'text-brand-600 font-bold'
-            }`}
+            className={cn('text-gray-500 dark:text-gray-400', {
+              'text-brand-600 font-bold': isHome,
+            })}
             href='/'
           >
             <SheetClose>Home</SheetClose>
           </Link>
           <Link
-            className={`text-gray-500 dark:text-gray-400 ${
-              isDashboard && 'text-brand-600 font-bold'
-            }`}
+            className={cn('text-gray-500 dark:text-gray-400', {
+              'text-brand-600 font-bold': isDashboard,
+            })}
             href='/dashboard'
           >
             <SheetClose>Dashboard</SheetClose>
           </Link>
           <Link
-            className={`text-gray-500 dark:text-gray-400 ${
-              isSearch && 'text-brand-600 font-bold'
-            }`}
+            className={cn('text-gray-500 dark:text-gray-400', {
+              'text-brand-600 font-bold': isSearch,
+            })}
             href='/search'
           >
             <SheetClose>Encontrar Cuidadores</SheetClose>

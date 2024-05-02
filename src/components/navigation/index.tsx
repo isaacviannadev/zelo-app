@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import MobileNav from './mobile-nav';
 
+import { cn } from '@/lib/utils';
+
 export default function Navigation() {
   const pathname = usePathname();
   const isDashboard = pathname === '/dashboard';
@@ -33,17 +35,17 @@ export default function Navigation() {
           </div>
         </Link>
         <Link
-          className={`text-gray-500 dark:text-gray-400 ${
-            isDashboard && 'text-brand-600 font-bold'
-          }`}
+          className={cn('text-gray-500 dark:text-gray-400', {
+            'text-brand-600 font-bold': isDashboard,
+          })}
           href='/dashboard'
         >
           Dashboard
         </Link>
         <Link
-          className={`text-gray-500 dark:text-gray-400 ${
-            isSearch && 'text-brand-600 font-bold'
-          }`}
+          className={cn('text-gray-500 dark:text-gray-400', {
+            'text-brand-600 font-bold': isSearch,
+          })}
           href='/search'
         >
           Encontrar Cuidadores
