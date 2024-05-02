@@ -13,7 +13,7 @@ import Navigation from '../navigation';
 
 export default function Header() {
   return (
-    <header className='flex items-center justify-between h-16 px-4 border-b shrink-0 md:px-6'>
+    <header className='flex items-center justify-between h-16 px-4 border-b shrink-0 md:px-6 z-1'>
       <Navigation />
       <div className='flex items-center w-fit gap-4 md:ml-auto md:gap-2 lg:gap-4'>
         <DropdownMenu>
