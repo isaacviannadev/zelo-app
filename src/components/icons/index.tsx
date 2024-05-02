@@ -339,21 +339,273 @@ function MenuIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   );
 }
 
+function UserXIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      <path d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2' />
+      <circle cx='9' cy='7' r='4' />
+      <line x1='17' x2='22' y1='8' y2='13' />
+      <line x1='22' x2='17' y1='8' y2='13' />
+    </svg>
+  );
+}
+
+function PlusIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      <path d='M5 12h14' />
+      <path d='M12 5v14' />
+    </svg>
+  );
+}
+
+function ListIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      <line x1='8' x2='21' y1='6' y2='6' />
+      <line x1='8' x2='21' y1='12' y2='12' />
+      <line x1='8' x2='21' y1='18' y2='18' />
+      <line x1='3' x2='3.01' y1='6' y2='6' />
+      <line x1='3' x2='3.01' y1='12' y2='12' />
+      <line x1='3' x2='3.01' y1='18' y2='18' />
+    </svg>
+  );
+}
+
+function PieChartIcon(
+  props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>
+) {
+  return (
+    <svg
+      {...props}
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      <path d='M21.21 15.89A10 10 0 1 1 8 2.83' />
+      <path d='M22 12A10 10 0 0 0 12 2v10z' />
+    </svg>
+  );
+}
+
+function ArchiveIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      <rect width='20' height='5' x='2' y='3' rx='1' />
+      <path d='M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8' />
+      <path d='M10 12h4' />
+    </svg>
+  );
+}
+
+function BarChartIcon(
+  props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>
+) {
+  return (
+    <svg
+      {...props}
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      <line x1='12' x2='12' y1='20' y2='10' />
+      <line x1='18' x2='18' y1='20' y2='4' />
+      <line x1='6' x2='6' y1='20' y2='16' />
+    </svg>
+  );
+}
+
+function BriefcaseIcon(
+  props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>
+) {
+  return (
+    <svg
+      {...props}
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      <path d='M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16' />
+      <rect width='20' height='14' x='2' y='6' rx='2' />
+    </svg>
+  );
+}
+
+function CircleCheckIcon(
+  props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>
+) {
+  return (
+    <svg
+      {...props}
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      <circle cx='12' cy='12' r='10' />
+      <path d='m9 12 2 2 4-4' />
+    </svg>
+  );
+}
+
+function DeleteIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      <path d='M20 5H9l-7 7 7 7h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2Z' />
+      <line x1='18' x2='12' y1='9' y2='15' />
+      <line x1='12' x2='18' y1='9' y2='15' />
+    </svg>
+  );
+}
+
+function EyeIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      <path d='M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z' />
+      <circle cx='12' cy='12' r='3' />
+    </svg>
+  );
+}
+
+function HandHeartIcon(
+  props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>
+) {
+  return (
+    <svg
+      {...props}
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      <path d='M11 14h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 16' />
+      <path d='m7 20 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9' />
+      <path d='m2 15 6 6' />
+      <path d='M19.5 8.5c.7-.7 1.5-1.6 1.5-2.7A2.73 2.73 0 0 0 16 4a2.78 2.78 0 0 0-5 1.8c0 1.2.8 2 1.5 2.8L16 12Z' />
+    </svg>
+  );
+}
+
 export {
+  ArchiveIcon,
   ArrowUpDownIcon,
   AtSignIcon,
   AwardIcon,
+  BarChartIcon,
   BellIcon,
+  BriefcaseIcon,
   CalendarIcon,
+  CircleCheckIcon,
+  DeleteIcon,
+  EyeIcon,
   EyeOffIcon,
+  HandHeartIcon,
   HeartIcon,
+  ListIcon,
   LogoutIcon,
   MenuIcon,
   MessageCircleIcon,
+  PieChartIcon,
+  PlusIcon,
   SearchIcon,
   SettingsIcon,
   StarIcon,
   UserIcon,
   UserPlusIcon,
+  UserXIcon,
   UsersIcon,
 };
