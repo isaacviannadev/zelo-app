@@ -36,16 +36,20 @@ import {
 } from '@/components/ui/table';
 import { Textarea } from '@/components/ui/textarea';
 
-import { redirect } from 'next/navigation';
-
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function AdminArea() {
-  const admin = localStorage.getItem('isAdmin');
+  const router = useRouter();
 
-  if (!admin || admin !== 'true') {
-    redirect('/');
-  }
+  useEffect(() => {
+    const admin = localStorage.getItem('isAdmin');
+
+    if (!admin || admin !== 'true') {
+      router.push('/');
+    }
+  }, [router]);
 
   return (
     <div className='min-h-screen bg-gray-100 flex flex-col dark:bg-gray-900'>
