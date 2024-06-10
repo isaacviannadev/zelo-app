@@ -1,5 +1,5 @@
-import Vagas from './vagas/page';
+import Landing from './landing/page';
 
 export default function Home() {
-  return <Vagas />;
+  return <Landing />;
 }

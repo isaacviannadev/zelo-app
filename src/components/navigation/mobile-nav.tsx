@@ -13,14 +13,9 @@ import Link from 'next/link';
 type MobileNavProps = {
   isDashboard: boolean;
   isSearch: boolean;
-  isHome: boolean;
 };
 
-export default function MobileNav({
-  isDashboard,
-  isSearch,
-  isHome,
-}: MobileNavProps) {
+export default function MobileNav({ isDashboard, isSearch }: MobileNavProps) {
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -33,7 +28,7 @@ export default function MobileNav({
         <nav className='flex flex-col gap-6 text-lg font-medium md:hidden'>
           <Link
             className='flex items-center gap-2 text-lg font-semibold md:text-base'
-            href='/'
+            href='/dashboard'
           >
             <SheetClose>
               <div className='h-10 w-10'>
@@ -43,19 +38,11 @@ export default function MobileNav({
                   width={48}
                   height={48}
                 />
-                <span className='sr-only'>Caregivers</span>
+                <span className='sr-only'>zeloclub</span>
               </div>
             </SheetClose>
           </Link>
 
-          <Link
-            className={cn('text-gray-500 dark:text-gray-400', {
-              'text-brand-600 font-bold': isHome,
-            })}
-            href='/'
-          >
-            <SheetClose>Home</SheetClose>
-          </Link>
           <Link
             className={cn('text-gray-500 dark:text-gray-400', {
               'text-brand-600 font-bold': isDashboard,
