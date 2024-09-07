@@ -1,5 +1,6 @@
 'use client';
 
+import CaregiverRegistration from '@/components/forms/register-professional';
 import {
   ArchiveIcon,
   BarChartIcon,
@@ -11,6 +12,7 @@ import {
   PieChartIcon,
   PlusIcon,
   UserPlusIcon,
+  UserRoundCheck,
   UserXIcon,
   UsersIcon,
 } from '@/components/icons';
@@ -63,6 +65,20 @@ export default function AdminArea() {
               <div className='mt-3 space-y-2'>
                 <Link
                   className='flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors dark:text-gray-300 dark:hover:text-gray-100'
+                  href='#novo-profissional'
+                >
+                  <UserPlusIcon className='h-4 w-4' />
+                  Novo Cuidador
+                </Link>
+                <Link
+                  className='flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors dark:text-gray-300 dark:hover:text-gray-100'
+                  href='#cuidadores'
+                >
+                  <UserRoundCheck className='h-4 w-4' />
+                  Verificar Cuidadores
+                </Link>
+                <Link
+                  className='flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors dark:text-gray-300 dark:hover:text-gray-100'
                   href='#nova-vaga'
                 >
                   <PlusIcon className='h-4 w-4' />
@@ -74,13 +90,6 @@ export default function AdminArea() {
                 >
                   <ListIcon className='h-4 w-4' />
                   Todas as vagas
-                </Link>
-                <Link
-                  className='flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors dark:text-gray-300 dark:hover:text-gray-100'
-                  href='#cuidadores'
-                >
-                  <UsersIcon className='h-4 w-4' />
-                  Cuidadores
                 </Link>
               </div>
             </div>
@@ -107,7 +116,7 @@ export default function AdminArea() {
             </div>
           </div>
         </aside>
-        <div className='flex-1 p-6'>
+        <div className='flex-1 p-6 '>
           <div className='mb-6 grid gap-6 md:grid-cols-2 xl:grid-cols-4'>
             <Card>
               <CardHeader>
@@ -159,8 +168,74 @@ export default function AdminArea() {
             </Card>
           </div>
           <div className='grid gap-6'>
+            <Card id='#novo-profissional'>
+              <CardHeader className='flex justify-between'>
+                <CardTitle> Cadastro de Profissionais Cuidadores</CardTitle>
+                <CardDescription>
+                  Preencha os dados para cadastrar um novo cuidador.
+                </CardDescription>
+              </CardHeader>
+
+              <CaregiverRegistration />
+            </Card>
+
+            <Card id='#cuidadores'>
+              <CardHeader className='flex justify-between'>
+                <CardTitle className='flex justify-between'>
+                  Cuidadores
+                  <Button size='sm' variant='outline'>
+                    Aprovar novos
+                  </Button>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Nome</TableHead>
+                      <TableHead>Cidade</TableHead>
+                      <TableHead>Status</TableHead>
+                      <TableHead>Ações</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>
+                        <div className='flex items-center gap-2'>
+                          <Avatar>
+                            <AvatarImage
+                              alt='Avatar'
+                              src='/placeholder-avatar.jpg'
+                            />
+                            <AvatarFallback>MS</AvatarFallback>
+                          </Avatar>
+                          <span>Maria Silva</span>
+                        </div>
+                      </TableCell>
+                      <TableCell>São Paulo, SP</TableCell>
+                      <TableCell>
+                        <Badge variant='success'>Ativo</Badge>
+                      </TableCell>
+                      <TableCell>
+                        <div className='flex items-center gap-2'>
+                          <Button size='sm' variant='ghost'>
+                            <EyeIcon className='h-4 w-4' />
+                            <span className='sr-only'>Visualizar</span>
+                          </Button>
+                          <Button size='sm' variant='ghost'>
+                            <UserXIcon className='h-4 w-4' />
+                            <span className='sr-only'>Desativar</span>
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </CardContent>
+            </Card>
+
             <Card id='#nova-vaga'>
-              <CardHeader className='flex items-center justify-between'>
+              <CardHeader className='flex justify-between'>
                 <CardTitle>Nova vaga</CardTitle>
               </CardHeader>
               <CardContent>
@@ -201,12 +276,15 @@ export default function AdminArea() {
                 </form>
               </CardContent>
             </Card>
+
             <Card id='#ver-vagas'>
-              <CardHeader className='flex items-center justify-between'>
-                <CardTitle>Vagas existentes</CardTitle>
-                <Button size='sm' variant='outline'>
-                  Arquivar vagas
-                </Button>
+              <CardHeader className='flex justify-between'>
+                <CardTitle className='flex justify-between'>
+                  Vagas existentes{' '}
+                  <Button size='sm' variant='outline'>
+                    Arquivar vagas
+                  </Button>
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <Table>
@@ -232,58 +310,6 @@ export default function AdminArea() {
                           <Button size='sm' variant='ghost'>
                             <ArchiveIcon className='h-4 w-4' />
                             <span className='sr-only'>Arquivar</span>
-                          </Button>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
-            <Card id='#cuidadores'>
-              <CardHeader className='flex items-center justify-between'>
-                <CardTitle>Cuidadores</CardTitle>
-                <Button size='sm' variant='outline'>
-                  Aprovar novos
-                </Button>
-              </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Nome</TableHead>
-                      <TableHead>Cidade</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Ações</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    <TableRow>
-                      <TableCell>
-                        <div className='flex items-center gap-2'>
-                          <Avatar>
-                            <AvatarImage
-                              alt='Avatar'
-                              src='/placeholder-avatar.jpg'
-                            />
-                            <AvatarFallback>MS</AvatarFallback>
-                          </Avatar>
-                          <span>Maria Silva</span>
-                        </div>
-                      </TableCell>
-                      <TableCell>São Paulo, SP</TableCell>
-                      <TableCell>
-                        <Badge variant='success'>Ativo</Badge>
-                      </TableCell>
-                      <TableCell>
-                        <div className='flex items-center gap-2'>
-                          <Button size='sm' variant='ghost'>
-                            <EyeIcon className='h-4 w-4' />
-                            <span className='sr-only'>Visualizar</span>
-                          </Button>
-                          <Button size='sm' variant='ghost'>
-                            <UserXIcon className='h-4 w-4' />
-                            <span className='sr-only'>Desativar</span>
                           </Button>
                         </div>
                       </TableCell>
