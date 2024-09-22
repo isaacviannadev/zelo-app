@@ -1,6 +1,5 @@
-'use client';
-
-import CaregiverRegistration from '@/components/forms/register-professional';
+import { getAllCities, getStates } from '@/api/address';
+import CreateProfileForm from '@/components/forms/register-professional';
 import {
   ArchiveIcon,
   BarChartIcon,
@@ -37,21 +36,13 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Textarea } from '@/components/ui/textarea';
+import { City, State } from '@/types';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 
-export default function AdminArea() {
-  const router = useRouter();
-
-  useEffect(() => {
-    const admin = localStorage.getItem('isAdmin');
-
-    if (!admin || admin !== 'true') {
-      router.push('/');
-    }
-  }, [router]);
+export default async function AdminArea() {
+  const states: State[] = await getStates();
+  const cities: City[] = await getAllCities();
 
   return (
     <div className='min-h-screen bg-gray-100 flex flex-col dark:bg-gray-900'>
@@ -176,7 +167,7 @@ export default function AdminArea() {
                 </CardDescription>
               </CardHeader>
 
-              <CaregiverRegistration />
+              <CreateProfileForm states={states} cities={cities} />
             </Card>
 
             <Card id='#cuidadores'>

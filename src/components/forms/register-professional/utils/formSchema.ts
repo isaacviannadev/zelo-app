@@ -15,12 +15,20 @@ export const formSchema = z.object({
   chargePrice: z.number().positive(),
   fullName: z.string().min(3),
   email: z.string().email(),
-  birthDate: z.string(),
+  birthDate: z.string().date(),
   address: z.object({
-    street: z.string(),
-    city: z.string(),
+    street: z
+      .string({
+        required_error: 'Rua é obrigatória',
+      })
+      .min(1, 'Rua não pode ser vazia'),
+    number: z.string().min(1, 'Número é obrigatório'),
+    city: z.string().min(1, 'Cidade é obrigatória'),
     state: z.enum(BrazilianState),
-    zipCode: z.string(),
+    country: z.string().min(1, 'País é obrigatório'),
+    neighborhood: z.string().min(1, 'Bairro é obrigatório'),
+    complement: z.string().optional(),
+    zipCode: z.string().min(1, 'CEP inválido'),
   }),
   contacts: z
     .array(

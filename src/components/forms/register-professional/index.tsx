@@ -1,5 +1,6 @@
 'use client';
 
+import { getAddressByCep } from '@/api/address';
 import { PlusIcon } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import {
@@ -26,14 +27,20 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { City, State } from '@/types';
+import { formatCep } from '@/utils/formatters';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TrashIcon } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import {
-  BrazilianState,
   ContactTypes,
+  crossContactName,
+  crossDaysOfWeek,
+  crossGenderName,
+  crossHealthcareRole,
+  crossProfileTypes,
   DaysOfWeek,
   EnumGender,
   HealthcareRole,
@@ -51,8 +58,17 @@ const submitFormData = async (data: FormValues) => {
   );
 };
 
-export default function CaregiverRegistration() {
+type CreateProfileFormProps = {
+  states: State[];
+  cities: City[];
+};
+export default function CreateProfileForm({
+  states,
+  cities,
+}: CreateProfileFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [filteredCities, setFilteredCities] = useState<City[]>([]);
+  const [cepCity, setCepCity] = useState(null);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -64,7 +80,15 @@ export default function CaregiverRegistration() {
       fullName: '',
       email: '',
       birthDate: '',
-      address: { street: '', city: '', state: 'SP', zipCode: '' },
+      address: {
+        street: '',
+        complement: '',
+        number: '',
+        neighborhood: '',
+        city: '',
+        state: 'SP',
+        zipCode: '',
+      },
       contacts: [{ type: 'PHONE', value: '' }],
       specialty: 'CAREGIVER',
       profileType: 'PROFESSIONAL',
@@ -74,6 +98,9 @@ export default function CaregiverRegistration() {
       ],
     },
   });
+
+  const watchState = form.watch('address.state');
+  const watchCity = form.watch('address.city'); // Observa o valor da cidade
 
   const {
     fields: contactFields,
@@ -101,6 +128,44 @@ export default function CaregiverRegistration() {
     control: form.control,
     name: 'certification',
   });
+
+  const handleCepChange = async (cep: string) => {
+    if (cep.length < 9) return;
+    const cepWithoutHyphen = cep.replace('-', '');
+    const address = await getAddressByCep(cepWithoutHyphen);
+
+    if (address.erro) {
+      alert('CEP não encontrado. Por favor, verifique o CEP informado.');
+      return;
+    }
+
+    form.setValue('address.street', address.logradouro);
+    form.setValue('address.neighborhood', address.bairro);
+    form.setValue('address.state', address.uf);
+
+    setCepCity(address.localidade);
+    form.setValue('address.city', address.localidade);
+  };
+
+  useEffect(() => {
+    if (watchState) {
+      const citiesFromState = cities.filter(
+        (city) => city.microrregiao.mesorregiao.UF.sigla === watchState
+      );
+      setFilteredCities(citiesFromState);
+
+      // Se houver uma cidade salva (proveniente do CEP), tenta selecioná-la
+      if (cepCity) {
+        const matchingCity = citiesFromState.find(
+          (city) => city.nome === cepCity
+        );
+        if (matchingCity) {
+          form.setValue('address.city', matchingCity.nome); // Certifique-se de que o setValue está sendo chamado
+          setCepCity(null); // Limpa a cidade temporária
+        }
+      }
+    }
+  }, [watchState, cepCity, cities, form]);
 
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
@@ -137,7 +202,7 @@ export default function CaregiverRegistration() {
               )}
             />
 
-            <div className='grid grid-cols-2 gap-4'>
+            <div className='grid grid-cols-3 gap-4'>
               <FormField
                 control={form.control}
                 name='email'
@@ -169,34 +234,35 @@ export default function CaregiverRegistration() {
                   </FormItem>
                 )}
               />
+
+              <FormField
+                control={form.control}
+                name='gender'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Gênero</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder='Selecione o gênero' />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {EnumGender.map((gender) => (
+                          <SelectItem key={gender} value={gender}>
+                            {crossGenderName[gender]}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
-            <FormField
-              control={form.control}
-              name='gender'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Gênero</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder='Selecione o gênero' />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {EnumGender.map((gender) => (
-                        <SelectItem key={gender} value={gender}>
-                          {gender}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
           </div>
           <Divider />
 
@@ -231,9 +297,9 @@ export default function CaregiverRegistration() {
                                   </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
-                                  {BrazilianState.map((state) => (
-                                    <SelectItem key={state} value={state}>
-                                      {state}
+                                  {states.map(({ id, sigla, nome }) => (
+                                    <SelectItem key={id} value={sigla}>
+                                      {nome}
                                     </SelectItem>
                                   ))}
                                 </SelectContent>
@@ -300,85 +366,141 @@ export default function CaregiverRegistration() {
           <Divider />
 
           {/* Endereço */}
-          <div className='space-y-4'>
-            <h2 className='text-xl font-semibold'>Endereço</h2>
+          <h2 className='text-xl font-semibold'>Endereço</h2>
+          <div className='grid grid-cols-3 grid-rows-3 gap-4'>
+            <FormField
+              control={form.control}
+              name='address.zipCode'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>CEP</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder='CEP'
+                      maxLength={9}
+                      {...field}
+                      onChange={({ target: { value } }) => {
+                        field.onChange(formatCep(value));
+                        if (value.length === 9) {
+                          handleCepChange(value);
+                        }
+                      }}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
             <FormField
               control={form.control}
-              name='address'
+              name='address.street'
               render={({ field }) => (
-                <FormItem>
-                  <div className='flex gap-4'>
-                    <div className='flex-1'>
-                      <FormLabel>CEP</FormLabel>
-                      <Input
-                        placeholder='CEP'
-                        {...field}
-                        value={field.value.zipCode}
-                        className='w-40'
-                        onChange={(e) =>
-                          field.onChange({
-                            ...field.value,
-                            zipCode: e.target.value,
-                          })
-                        }
-                      />
-                    </div>
-                    <div className='w-full'>
-                      <FormLabel>Rua</FormLabel>
-                      <Input
-                        placeholder='Rua'
-                        {...field}
-                        value={field.value.street}
-                        onChange={(e) =>
-                          field.onChange({
-                            ...field.value,
-                            street: e.target.value,
-                          })
-                        }
-                      />
-                    </div>
-                  </div>
-                  <div className='flex gap-4'>
-                    <div className='w-1/3'>
-                      <FormLabel>Cidade</FormLabel>
-                      <Input
-                        placeholder='Cidade'
-                        {...field}
-                        value={field.value.city}
-                        onChange={(e) =>
-                          field.onChange({
-                            ...field.value,
-                            city: e.target.value,
-                          })
-                        }
-                      />
-                    </div>
-                    <div className='w-full'>
-                      <FormLabel>Estado</FormLabel>
+                <FormItem className='col-span-2'>
+                  <FormLabel>Rua</FormLabel>
+                  <FormControl>
+                    <Input placeholder='Rua' {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-                      <Select
-                        onValueChange={(value) =>
-                          field.onChange({ ...field.value, state: value })
-                        }
-                        defaultValue={field.value.state}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder='Estado' />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {BrazilianState.map((state) => (
-                            <SelectItem key={state} value={state}>
-                              {state}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
+            <FormField
+              control={form.control}
+              name='address.complement'
+              render={({ field }) => (
+                <FormItem className='col-span-2 row-start-2'>
+                  <FormLabel>Complemento</FormLabel>
+                  <FormControl>
+                    <Input placeholder='Complemento' {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
+            <FormField
+              control={form.control}
+              name='address.number'
+              render={({ field }) => (
+                <FormItem className='col-start-3 row-start-2'>
+                  <FormLabel>Número</FormLabel>
+                  <FormControl>
+                    <Input placeholder='Número' type='number' {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name='address.neighborhood'
+              render={({ field }) => (
+                <FormItem className='row-start-3'>
+                  <FormLabel>Bairro</FormLabel>
+                  <FormControl>
+                    <Input placeholder='Bairro' {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name='address.state'
+              render={({ field }) => (
+                <FormItem className='row-start-3'>
+                  <FormLabel>Estado</FormLabel>
+                  <Select
+                    onValueChange={(value) => field.onChange(value)}
+                    value={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder='Estado' />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {states.map(({ id, nome, sigla }) => (
+                        <SelectItem key={id} value={sigla}>
+                          {nome}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name='address.city'
+              render={({ field }) => (
+                <FormItem className='row-start-3'>
+                  <FormLabel>Cidade</FormLabel>
+                  <FormControl>
+                    <Select
+                      onValueChange={(value) => field.onChange(value)}
+                      value={watchCity}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder='Cidade' />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {filteredCities.map((city) => (
+                          <SelectItem key={city.id} value={city.nome}>
+                            {city.nome}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -400,7 +522,7 @@ export default function CaregiverRegistration() {
                   <PlusIcon className='h-4 w-4' />
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p> Adicionar Contato</p>
+                  <p>Adicionar Contato</p>
                 </TooltipContent>
               </Tooltip>
             </div>
@@ -425,7 +547,7 @@ export default function CaregiverRegistration() {
                         <SelectContent>
                           {ContactTypes.map((type) => (
                             <SelectItem key={type} value={type}>
-                              {type}
+                              {crossContactName[type]}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -484,7 +606,7 @@ export default function CaregiverRegistration() {
                       <SelectContent>
                         {HealthcareRole.map((role) => (
                           <SelectItem key={role} value={role}>
-                            {role}
+                            {crossHealthcareRole[role]}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -514,7 +636,7 @@ export default function CaregiverRegistration() {
                               <RadioGroupItem value={type} />
                             </FormControl>
                             <FormLabel className='font-normal'>
-                              {type}
+                              {crossProfileTypes[type]}
                             </FormLabel>
                           </FormItem>
                         ))}
@@ -576,7 +698,7 @@ export default function CaregiverRegistration() {
                         <SelectContent>
                           {DaysOfWeek.map((day) => (
                             <SelectItem key={day} value={day}>
-                              {day}
+                              {crossDaysOfWeek[day]}
                             </SelectItem>
                           ))}
                         </SelectContent>

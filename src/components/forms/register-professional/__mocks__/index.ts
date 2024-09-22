@@ -1,5 +1,5 @@
 // Simulando tipos enumerados
-export const EnumGender = ['MALE', 'FEMALE', 'OTHER'] as const;
+export const EnumGender = ['MALE', 'FEMALE', 'OTHER', 'NOTINFORMED'] as const;
 
 export const BrazilianState = [
   'SP',
@@ -19,14 +19,14 @@ export const BrazilianState = [
 ] as const;
 
 export const HealthcareRole = [
-  'NURSE',
   'CAREGIVER',
+  'NURSE',
   'PHYSIOTHERAPIST',
-  'DOCTOR',
   'PSYCHOLOGIST',
+  'DOCTOR',
 ] as const;
 
-export const ProfileTypes = ['PROFESSIONAL', 'INSTITUTION'] as const;
+export const ProfileTypes = ['PROFESSIONAL', 'CUSTOMER', 'BACKOFFICE'] as const;
 
 export const ContactTypes = ['PHONE', 'EMAIL', 'WHATSAPP'] as const;
 
@@ -39,6 +39,43 @@ export const DaysOfWeek = [
   'SATURDAY',
   'SUNDAY',
 ] as const;
+
+export const crossGenderName = {
+  MALE: 'Masculino',
+  FEMALE: 'Feminino',
+  OTHER: 'Outro',
+  NOTINFORMED: 'Não informar',
+};
+
+export const crossContactName = {
+  PHONE: 'Telefone',
+  EMAIL: 'E-mail',
+  WHATSAPP: 'WhatsApp',
+};
+
+export const crossDaysOfWeek = {
+  MONDAY: 'Segunda-feira',
+  TUESDAY: 'Terça-feira',
+  WEDNESDAY: 'Quarta-feira',
+  THURSDAY: 'Quinta-feira',
+  FRIDAY: 'Sexta-feira',
+  SATURDAY: 'Sábado',
+  SUNDAY: 'Domingo',
+};
+
+export const crossProfileTypes = {
+  PROFESSIONAL: 'Profissional',
+  CUSTOMER: 'Cliente',
+  BACKOFFICE: 'Backoffice',
+};
+
+export const crossHealthcareRole = {
+  CAREGIVER: 'Cuidador(a)',
+  NURSE: 'Enfermeiro(a)',
+  PHYSIOTHERAPIST: 'Fisioterapeuta',
+  PSYCHOLOGIST: 'Psicólogo(a)',
+  DOCTOR: 'Médico(a)',
+};
 
 export default {
   EnumGender,
