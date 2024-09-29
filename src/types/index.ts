@@ -36,6 +36,8 @@ export type ImediateRegion = {
   'regiao-intermediaria': MesoRegion;
 };
 
+export type ProfileType = 'PROFESSIONAL' | 'CUSTOMER' | 'BACKOFFICE';
+
 export type ViaCepResponse = {
   cep: string;
   logradouro: string;

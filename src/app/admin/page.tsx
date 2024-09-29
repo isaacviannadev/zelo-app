@@ -1,5 +1,5 @@
 import { getAllCities, getStates } from '@/api/address';
-import CreateProfileForm from '@/components/forms/register-professional';
+import CreateProfileForm from '@/components/forms/create-profile';
 import {
   ArchiveIcon,
   BarChartIcon,
@@ -56,10 +56,10 @@ export default async function AdminArea() {
               <div className='mt-3 space-y-2'>
                 <Link
                   className='flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors dark:text-gray-300 dark:hover:text-gray-100'
-                  href='#novo-profissional'
+                  href='#novo-perfil'
                 >
                   <UserPlusIcon className='h-4 w-4' />
-                  Novo Cuidador
+                  Novo perfil
                 </Link>
                 <Link
                   className='flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors dark:text-gray-300 dark:hover:text-gray-100'
@@ -159,18 +159,15 @@ export default async function AdminArea() {
             </Card>
           </div>
           <div className='grid gap-6'>
-            <Card id='#novo-profissional'>
+            <Card id='novo-perfil'>
               <CardHeader className='flex justify-between'>
-                <CardTitle> Cadastro de Profissionais Cuidadores</CardTitle>
-                <CardDescription>
-                  Preencha os dados para cadastrar um novo cuidador.
-                </CardDescription>
+                <CardTitle> Cadastro de Perfil</CardTitle>
               </CardHeader>
 
               <CreateProfileForm states={states} cities={cities} />
             </Card>
 
-            <Card id='#cuidadores'>
+            <Card id='cuidadores'>
               <CardHeader className='flex justify-between'>
                 <CardTitle className='flex justify-between'>
                   Cuidadores
@@ -225,7 +222,7 @@ export default async function AdminArea() {
               </CardContent>
             </Card>
 
-            <Card id='#nova-vaga'>
+            <Card id='nova-vaga'>
               <CardHeader className='flex justify-between'>
                 <CardTitle>Nova vaga</CardTitle>
               </CardHeader>
@@ -268,7 +265,7 @@ export default async function AdminArea() {
               </CardContent>
             </Card>
 
-            <Card id='#ver-vagas'>
+            <Card id='ver-vagas'>
               <CardHeader className='flex justify-between'>
                 <CardTitle className='flex justify-between'>
                   Vagas existentes{' '}
