@@ -1,0 +1,9 @@
+overwrite: true
+schema: 'https://zeloclub.corex.tec.br/' # Ou o caminho para seu arquivo de esquema
+documents: 'src/api/graphql/**/*.ts'
+generates:
+  app/graphql/generated.tsx:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-react-apollo'

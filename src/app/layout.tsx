@@ -4,8 +4,8 @@ import localFont from 'next/font/local';
 import Header from '@/components/header';
 import { Toaster } from 'sonner';
 
-import { TooltipProvider } from '@/components/ui/tooltip';
 import './globals.css';
+import { Providers } from './providers';
 
 const alice = localFont({
   src: '../assets/fonts/Alice-Regular.ttf',
@@ -66,12 +66,12 @@ export default function RootLayout({
         className={`${alice.variable} ${roxborough.variable} font-sans `}
         suppressHydrationWarning={true}
       >
-        <TooltipProvider>
+        <Providers>
           <div className='flex flex-col min-h-screen'>
             <Header />
             {children}
           </div>
-        </TooltipProvider>
+        </Providers>
         <Toaster position='top-right' richColors />
       </body>
     </html>

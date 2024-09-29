@@ -49,14 +49,10 @@ import {
 import Divider from './components/Divider';
 import { formSchema } from './utils/formSchema';
 
-type FormValues = z.infer<typeof formSchema>;
+import { CREATE_PROFESSIONAL } from '@/api/graphql/mutations/createProfessional';
+import { useMutation } from '@apollo/client';
 
-const submitFormData = async (data: FormValues) => {
-  console.log('Dados enviados:', data);
-  return new Promise((resolve) =>
-    setTimeout(() => resolve({ success: true }), 1000)
-  );
-};
+type FormValues = z.infer<typeof formSchema>;
 
 type CreateProfileFormProps = {
   states: State[];
@@ -69,6 +65,8 @@ export default function CreateProfileForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [filteredCities, setFilteredCities] = useState<City[]>([]);
   const [cepCity, setCepCity] = useState(null);
+
+  const [createProfessional] = useMutation(CREATE_PROFESSIONAL);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -178,12 +176,20 @@ export default function CreateProfileForm({
   }, [watchState, cepCity, cities, form]);
 
   const onSubmit = async (data: FormValues) => {
-    const result = formSchema.safeParse(data);
+    setIsSubmitting(true);
 
-    if (!result.success) {
-      console.log(result.error);
-    } else {
-      console.log('Validação bem-sucedida:', result.data);
+    try {
+      const variables = {
+        input: data,
+      };
+
+      await createProfessional({ variables });
+      alert('Cadastro realizado com sucesso!');
+    } catch (error) {
+      console.error(error);
+      alert('Erro ao cadastrar perfil. Por favor, tente novamente.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
