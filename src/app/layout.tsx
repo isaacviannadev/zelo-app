@@ -56,9 +56,9 @@ export const Head = () => {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang='en'>
       <Head />
@@ -71,8 +71,8 @@ export default function RootLayout({
             <Header />
             {children}
           </div>
+          <Toaster position='top-right' richColors />
         </Providers>
-        <Toaster position='top-right' richColors />
       </body>
     </html>
   );

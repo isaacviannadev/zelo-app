@@ -35,7 +35,9 @@ import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import {
+  CertificationTypes,
   ContactTypes,
+  crossCertificationTypes,
   crossContactName,
   crossDaysOfWeek,
   crossGenderName,
@@ -72,9 +74,9 @@ export default function CreateProfileForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       gender: 'MALE',
-      actionArea: [],
-      services: [],
-      chargePrice: 0,
+      workingArea: [],
+      services: [{ name: 'test', value: 'test' }],
+      shiftValue: 0,
       fullName: '',
       email: '',
       birthDate: '',
@@ -93,7 +95,12 @@ export default function CreateProfileForm({
       profileType: 'PROFESSIONAL',
       availability: [{ dayOfWeek: 'MONDAY', startTime: '', endTime: '' }],
       certification: [
-        { name: '', institution: '', year: new Date().getFullYear() },
+        {
+          name: '',
+          type: 'COURSE',
+          institution: '',
+          completionDate: new Date().toISOString(),
+        },
       ],
     },
   });
@@ -180,7 +187,19 @@ export default function CreateProfileForm({
 
     try {
       const variables = {
-        input: data,
+        data: {
+          ...data,
+          contacts: {
+            phone: data.contacts[0].value,
+            email: data.email,
+            whatsapp: '',
+          },
+          birthDate: new Date(data.birthDate),
+          password: '123456',
+          firstName: data.fullName.split(' ')[0],
+          lastName: data.fullName.split(' ')[1],
+          userId: '???',
+        },
       };
 
       await createProfessional({ variables });
@@ -344,48 +363,38 @@ export default function CreateProfileForm({
                   />
                   <FormField
                     control={form.control}
-                    name='actionArea'
-                    render={() => (
-                      <FormItem className='w-full'>
-                        <FormLabel>Área de Atuação</FormLabel>
-                        <FormField
-                          control={form.control}
-                          name='actionArea'
-                          render={({ field }) => {
-                            return (
-                              <FormItem className='flex flex-row items-start space-x-3 space-y-0'>
-                                <FormControl>
-                                  <Select
-                                    onValueChange={(value) =>
-                                      field.onChange([value])
-                                    }
-                                  >
-                                    <FormControl>
-                                      <SelectTrigger>
-                                        <SelectValue placeholder='Estado' />
-                                      </SelectTrigger>
-                                    </FormControl>
-                                    <SelectContent>
-                                      {states.map(({ id, sigla, nome }) => (
-                                        <SelectItem key={id} value={sigla}>
-                                          {nome}
-                                        </SelectItem>
-                                      ))}
-                                    </SelectContent>
-                                  </Select>
-                                </FormControl>
-                              </FormItem>
-                            );
-                          }}
-                        />
-                        <FormMessage />
-                      </FormItem>
+                    name='workingArea'
+                    render={({ field }) => (
+                      <div className='flex w-full gap-4'>
+                        <FormItem className='w-full'>
+                          <FormLabel>Área de Atuação</FormLabel>
+                          <FormControl>
+                            <Select
+                              onValueChange={(value) => field.onChange([value])}
+                            >
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder='Estado' />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {states.map(({ id, sigla, nome }) => (
+                                  <SelectItem key={id} value={sigla}>
+                                    {nome}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      </div>
                     )}
                   />
 
                   <FormField
                     control={form.control}
-                    name='chargePrice'
+                    name='shiftValue'
                     render={({ field }) => (
                       <FormItem className='w-full'>
                         <FormLabel>Preço por Hora (R$)</FormLabel>
@@ -407,7 +416,7 @@ export default function CreateProfileForm({
 
                 <FormField
                   control={form.control}
-                  name='services'
+                  name='services.0.value'
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Serviços Oferecidos</FormLabel>
@@ -415,11 +424,7 @@ export default function CreateProfileForm({
                         <Textarea
                           placeholder='Liste os serviços oferecidos, separados por vírgula'
                           {...field}
-                          onChange={(e) =>
-                            field.onChange(
-                              e.target.value.split(',').map((s) => s.trim())
-                            )
-                          }
+                          onChange={(e) => field.onChange(e.target.value)}
                         />
                       </FormControl>
                       <FormDescription>
@@ -693,8 +698,9 @@ export default function CreateProfileForm({
                       onClick={() =>
                         appendCertification({
                           name: '',
+                          type: 'COURSE',
                           institution: '',
-                          year: new Date().getFullYear(),
+                          completionDate: new Date().toISOString(),
                         })
                       }
                     >
@@ -721,6 +727,34 @@ export default function CreateProfileForm({
                     />
                     <FormField
                       control={form.control}
+                      name={`certification.${index}.type`}
+                      render={({ field }) => (
+                        <FormItem className='flex-grow'>
+                          <FormLabel>Tipo</FormLabel>
+                          <FormControl>
+                            <Select
+                              onValueChange={field.onChange}
+                              defaultValue={field.value}
+                            >
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder='Selecione o tipo' />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {CertificationTypes.map((type) => (
+                                  <SelectItem key={type} value={type}>
+                                    {crossCertificationTypes[type]}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
                       name={`certification.${index}.institution`}
                       render={({ field }) => (
                         <FormItem className='flex-grow'>
@@ -733,18 +767,12 @@ export default function CreateProfileForm({
                     />
                     <FormField
                       control={form.control}
-                      name={`certification.${index}.year`}
+                      name={`certification.${index}.completionDate`}
                       render={({ field }) => (
                         <FormItem className='w-36'>
-                          <FormLabel>Ano</FormLabel>
+                          <FormLabel>Completo em:</FormLabel>
                           <FormControl>
-                            <Input
-                              type='number'
-                              {...field}
-                              onChange={(e) =>
-                                field.onChange(parseInt(e.target.value))
-                              }
-                            />
+                            <Input type='date' {...field} />
                           </FormControl>
                         </FormItem>
                       )}

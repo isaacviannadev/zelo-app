@@ -1,4 +1,3 @@
-// app/providers.tsx
 'use client';
 
 import { TooltipProvider } from '@/components/ui/tooltip';

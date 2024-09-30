@@ -40,6 +40,12 @@ export const DaysOfWeek = [
   'SUNDAY',
 ] as const;
 
+export const CertificationTypes = [
+  'GRADUATION',
+  'POSTGRADUATION',
+  'COURSE',
+] as const;
+
 export const crossGenderName = {
   MALE: 'Masculino',
   FEMALE: 'Feminino',
@@ -75,6 +81,12 @@ export const crossHealthcareRole = {
   PHYSIOTHERAPIST: 'Fisioterapeuta',
   PSYCHOLOGIST: 'Psicólogo(a)',
   DOCTOR: 'Médico(a)',
+};
+
+export const crossCertificationTypes = {
+  GRADUATION: 'Graduação',
+  POSTGRADUATION: 'Pós-graduação',
+  COURSE: 'Curso',
 };
 
 export default {

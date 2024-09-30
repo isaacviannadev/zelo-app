@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import {
   BrazilianState,
+  CertificationTypes,
   ContactTypes,
   DaysOfWeek,
   EnumGender,
@@ -37,9 +38,9 @@ const baseSchema = z.object({
 
 const professionalSchema = baseSchema.extend({
   profileType: z.literal('PROFESSIONAL'),
-  actionArea: z.array(z.enum(BrazilianState)).min(1),
-  services: z.array(z.string()).min(1),
-  chargePrice: z.number().positive(),
+  workingArea: z.array(z.enum(BrazilianState)).min(1),
+  services: z.array(z.object({ name: z.string(), value: z.string() })),
+  shiftValue: z.number().positive(),
   address: addressSchema,
   specialty: z.enum(HealthcareRole),
   availability: z
@@ -55,8 +56,9 @@ const professionalSchema = baseSchema.extend({
     .array(
       z.object({
         name: z.string(),
+        type: z.enum(CertificationTypes),
         institution: z.string(),
-        year: z.number().int().positive(),
+        completionDate: z.string().date(),
       })
     )
     .optional(),
