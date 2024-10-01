@@ -22,7 +22,7 @@ export default function NotFound() {
           </p>
           <Link
             className='inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-white bg-brand-600 rounded-md shadow-md hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800'
-            href='#'
+            href='/'
           >
             Voltar pra página inicial
           </Link>
