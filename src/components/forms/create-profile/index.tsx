@@ -52,7 +52,9 @@ import Divider from './components/Divider';
 import { formSchema } from './utils/formSchema';
 
 import { CREATE_PROFESSIONAL } from '@/api/graphql/mutations/createProfessional';
+import { birthDateDefault } from '@/utils/constant';
 import { useMutation } from '@apollo/client';
+import { toast } from 'sonner';
 
 type FormValues = z.infer<typeof formSchema>;
 
@@ -72,14 +74,15 @@ export default function CreateProfileForm({
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
+    mode: 'all',
     defaultValues: {
       gender: 'MALE',
       workingArea: [],
-      services: [{ name: 'test', value: 'test' }],
-      shiftValue: 0,
+      services: [],
+      shiftValue: 10.0,
       fullName: '',
       email: '',
-      birthDate: '',
+      birthDate: birthDateDefault.split('T')[0],
       address: {
         street: '',
         complement: '',
@@ -99,7 +102,7 @@ export default function CreateProfileForm({
           name: '',
           type: 'COURSE',
           institution: '',
-          completionDate: new Date().toISOString(),
+          completionDate: new Date().toISOString().split('T')[0],
         },
       ],
     },
@@ -169,7 +172,6 @@ export default function CreateProfileForm({
       );
       setFilteredCities(citiesFromState);
 
-      // Se houver uma cidade salva (proveniente do CEP), tenta selecioná-la
       if (cepCity) {
         const matchingCity = citiesFromState.find(
           (city) => city.nome === cepCity
@@ -189,24 +191,14 @@ export default function CreateProfileForm({
       const variables = {
         data: {
           ...data,
-          contacts: {
-            phone: data.contacts[0].value,
-            email: data.email,
-            whatsapp: '',
-          },
-          birthDate: new Date(data.birthDate),
-          password: '123456',
-          firstName: data.fullName.split(' ')[0],
-          lastName: data.fullName.split(' ')[1],
-          userId: '???',
         },
       };
 
       await createProfessional({ variables });
-      alert('Cadastro realizado com sucesso!');
+      toast.success('Perfil cadastrado com sucesso!');
     } catch (error) {
       console.error(error);
-      alert('Erro ao cadastrar perfil. Por favor, tente novamente.');
+      toast.error('Erro ao cadastrar perfil. Tente novamente mais tarde.');
     } finally {
       setIsSubmitting(false);
     }
@@ -231,6 +223,7 @@ export default function CreateProfileForm({
                 handleProfileTypeChange(value as ProfileType)
               }
               defaultValue={watchProfileType}
+              className='flex justify-start bg-slate-50  rounded rounded-t-3xl p-4 gap-4'
             >
               {ProfileTypes.map((type) => (
                 <ToggleGroupItem
@@ -288,7 +281,11 @@ export default function CreateProfileForm({
                   <FormItem>
                     <FormLabel>Data de Nascimento</FormLabel>
                     <FormControl>
-                      <Input type='date' {...field} />
+                      <Input
+                        type='date'
+                        max={new Date().toISOString().split('T')[0]}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -401,10 +398,14 @@ export default function CreateProfileForm({
                         <FormControl>
                           <Input
                             type='number'
-                            step='0.01'
+                            step='10.00'
+                            max='1000.00'
+                            min='10.00'
                             {...field}
                             onChange={(e) =>
-                              field.onChange(parseFloat(e.target.value))
+                              field.onChange(
+                                parseFloat(e.target.value.replace(',', '.'))
+                              )
                             }
                           />
                         </FormControl>
@@ -416,7 +417,7 @@ export default function CreateProfileForm({
 
                 <FormField
                   control={form.control}
-                  name='services.0.value'
+                  name='services'
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Serviços Oferecidos</FormLabel>
@@ -424,7 +425,9 @@ export default function CreateProfileForm({
                         <Textarea
                           placeholder='Liste os serviços oferecidos, separados por vírgula'
                           {...field}
-                          onChange={(e) => field.onChange(e.target.value)}
+                          onChange={(e) => {
+                            field.onChange(e.target.value.split(','));
+                          }}
                         />
                       </FormControl>
                       <FormDescription>
@@ -624,7 +627,7 @@ export default function CreateProfileForm({
                       control={form.control}
                       name={`availability.${index}.dayOfWeek`}
                       render={({ field }) => (
-                        <FormItem className='w-2/3'>
+                        <FormItem className='w-full'>
                           <FormLabel>Dia da Semana</FormLabel>
                           <Select
                             onValueChange={field.onChange}
@@ -646,41 +649,39 @@ export default function CreateProfileForm({
                         </FormItem>
                       )}
                     />
-                    <div className='flex items-end gap-4'>
-                      <FormField
-                        control={form.control}
-                        name={`availability.${index}.startTime`}
-                        render={({ field }) => (
-                          <FormItem className='flex-grow'>
-                            <FormLabel>Hora de Início</FormLabel>
-                            <FormControl>
-                              <Input type='time' {...field} />
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name={`availability.${index}.endTime`}
-                        render={({ field }) => (
-                          <FormItem className='flex-grow'>
-                            <FormLabel>Hora de Término</FormLabel>
-                            <FormControl>
-                              <Input type='time' {...field} />
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                      {availabilityFields.length > 1 && (
-                        <Button
-                          type='button'
-                          variant='outline'
-                          onClick={() => removeAvailability(index)}
-                        >
-                          <TrashIcon className='h-4 w-4 text-red-700' />
-                        </Button>
+                    <FormField
+                      control={form.control}
+                      name={`availability.${index}.startTime`}
+                      render={({ field }) => (
+                        <FormItem className='min-w-24 '>
+                          <FormLabel>Hora de Início</FormLabel>
+                          <FormControl>
+                            <Input type='time' {...field} />
+                          </FormControl>
+                        </FormItem>
                       )}
-                    </div>
+                    />
+                    <FormField
+                      control={form.control}
+                      name={`availability.${index}.endTime`}
+                      render={({ field }) => (
+                        <FormItem className='min-w-24'>
+                          <FormLabel>Hora de Fim</FormLabel>
+                          <FormControl>
+                            <Input type='time' {...field} />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                    {availabilityFields.length > 1 && (
+                      <Button
+                        type='button'
+                        variant='outline'
+                        onClick={() => removeAvailability(index)}
+                      >
+                        <TrashIcon className='h-4 w-4 text-red-700' />
+                      </Button>
+                    )}
                   </div>
                 ))}
               </div>
@@ -700,7 +701,9 @@ export default function CreateProfileForm({
                           name: '',
                           type: 'COURSE',
                           institution: '',
-                          completionDate: new Date().toISOString(),
+                          completionDate: new Date()
+                            .toISOString()
+                            .split('T')[0],
                         })
                       }
                     >
@@ -712,7 +715,7 @@ export default function CreateProfileForm({
                   </Tooltip>
                 </div>
                 {certificationFields.map((field, index) => (
-                  <div key={field.id} className='flex items-end gap-4'>
+                  <div key={field.id} className='flex gap-4'>
                     <FormField
                       control={form.control}
                       name={`certification.${index}.name`}
@@ -772,7 +775,11 @@ export default function CreateProfileForm({
                         <FormItem className='w-36'>
                           <FormLabel>Completo em:</FormLabel>
                           <FormControl>
-                            <Input type='date' {...field} />
+                            <Input
+                              type='date'
+                              {...field}
+                              max={new Date().toISOString().split('T')[0]}
+                            />
                           </FormControl>
                         </FormItem>
                       )}
@@ -781,6 +788,7 @@ export default function CreateProfileForm({
                       <Button
                         type='button'
                         variant='outline'
+                        className='flex mt-auto'
                         onClick={() => removeCertification(index)}
                       >
                         <TrashIcon className='h-4 w-4 text-red-700' />
@@ -811,7 +819,7 @@ export default function CreateProfileForm({
             </div>
 
             {contactFields.map((field, index) => (
-              <div key={field.id} className='flex items-end gap-4'>
+              <div key={field.id} className='flex gap-4'>
                 <FormField
                   control={form.control}
                   name={`contacts.${index}.type`}
@@ -835,6 +843,7 @@ export default function CreateProfileForm({
                           ))}
                         </SelectContent>
                       </Select>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />

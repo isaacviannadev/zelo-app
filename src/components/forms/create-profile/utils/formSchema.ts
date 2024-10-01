@@ -2,7 +2,6 @@ import { z } from 'zod';
 import {
   BrazilianState,
   CertificationTypes,
-  ContactTypes,
   DaysOfWeek,
   EnumGender,
   HealthcareRole,
@@ -20,26 +19,38 @@ const addressSchema = z.object({
   zipCode: z.string().min(1, 'CEP inválido'),
 });
 
+const contactsSchema = z.array(
+  z.discriminatedUnion('type', [
+    z.object({
+      type: z.literal('PHONE'),
+      value: z.string().regex(/^\d{10,}$/, 'Número de telefone inválido'),
+    }),
+    z.object({
+      type: z.literal('EMAIL'),
+      value: z.string().email('Endereço de email inválido'),
+    }),
+    z.object({
+      type: z.literal('WHATSAPP'),
+      value: z.string().regex(/^\d{10,}$/, 'Número do WhatsApp inválido'),
+    }),
+  ])
+);
+
 const baseSchema = z.object({
   profileType: z.enum(ProfileTypes),
   gender: z.enum(EnumGender),
-  fullName: z.string().min(3),
-  email: z.string().email(),
-  birthDate: z.string().date(),
-  contacts: z
-    .array(
-      z.object({
-        type: z.enum(ContactTypes),
-        value: z.string().min(8, 'Contato inválido'),
-      })
-    )
-    .min(1),
+  fullName: z.string().min(3, 'Nome completo é obrigatório'),
+  email: z.string().email('Endereço de email inválido'),
+  birthDate: z.string().date('Data de nascimento inválida'),
+  contacts: contactsSchema.min(1, 'Pelo menos um contato é obrigatório'),
 });
 
 const professionalSchema = baseSchema.extend({
   profileType: z.literal('PROFESSIONAL'),
-  workingArea: z.array(z.enum(BrazilianState)).min(1),
-  services: z.array(z.object({ name: z.string(), value: z.string() })),
+  workingArea: z
+    .array(z.enum(BrazilianState))
+    .min(1, 'Pelo menos um estado é obrigatório'),
+  services: z.array(z.string()).min(1, 'Pelo menos um serviço é obrigatório'),
   shiftValue: z.number().positive(),
   address: addressSchema,
   specialty: z.enum(HealthcareRole),
@@ -51,7 +62,7 @@ const professionalSchema = baseSchema.extend({
         endTime: z.string(),
       })
     )
-    .min(1),
+    .min(1, 'Pelo menos um horário é obrigatório'),
   certification: z
     .array(
       z.object({

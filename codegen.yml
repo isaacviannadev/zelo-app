@@ -1,5 +1,5 @@
 overwrite: true
-schema: 'https://zeloclub.corex.tec.br/' # Ou o caminho para seu arquivo de esquema
+schema: 'https://zeloclub.corex.tec.br/'
 documents: 'src/api/graphql/**/*.ts'
 generates:
   src/api/graphql/generated.tsx:

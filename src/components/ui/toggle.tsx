@@ -13,7 +13,7 @@ const toggleVariants = cva(
       variant: {
         default: 'bg-transparent',
         brand:
-          'bg-transparent hover:bg-brand-100 hover:text-brand-900 dark:border-brand-800 dark:hover:bg-brand-800 dark:hover:text-brand-50  data-[state=on]:bg-brand-100 data-[state=on]:text-brand-900 data-[state=on]:font-semibold',
+          'bg-transparent hover:bg-brand-50/50 hover:text-brand-900 dark:border-brand-800 dark:hover:bg-brand-800 dark:hover:text-brand-50  data-[state=on]:bg-brand-50 data-[state=on]:text-brand-900 ',
         outline:
           'border border-zinc-200 bg-transparent hover:bg-zinc-100 hover:text-zinc-900 dark:border-zinc-800 dark:hover:bg-zinc-800 dark:hover:text-zinc-50',
       },
