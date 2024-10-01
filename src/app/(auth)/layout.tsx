@@ -7,7 +7,7 @@ export default function MainLayout({
 }) {
   return (
     <>
-      <Header />
+      <Header user={null} />
       {children}
     </>
   );
