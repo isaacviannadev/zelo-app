@@ -408,13 +408,6 @@ export type Service = {
   updatedAt: Scalars['DateTimeISO']['output'];
 };
 
-export type CreateProfileMutationVariables = Exact<{
-  data: ICreateProfilePayload;
-}>;
-
-
-export type CreateProfileMutation = { __typename?: 'Mutation', CreateProfile: { __typename?: 'ICreateProfileResponse', profileId: string } };
-
 export type LoginMutationVariables = Exact<{
   data: ILoginPayload;
 }>;
@@ -422,40 +415,28 @@ export type LoginMutationVariables = Exact<{
 
 export type LoginMutation = { __typename?: 'Mutation', Login: { __typename?: 'ILoginResponse', expiresIn: number, token: string } };
 
+export type CreateProfileMutationVariables = Exact<{
+  data: ICreateProfilePayload;
+}>;
 
-export const CreateProfileDocument = gql`
-    mutation CreateProfile($data: ICreateProfilePayload!) {
-  CreateProfile(data: $data) {
-    profileId
-  }
-}
-    `;
-export type CreateProfileMutationFn = Apollo.MutationFunction<CreateProfileMutation, CreateProfileMutationVariables>;
 
-/**
- * __useCreateProfileMutation__
- *
- * To run a mutation, you first call `useCreateProfileMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateProfileMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createProfileMutation, { data, loading, error }] = useCreateProfileMutation({
- *   variables: {
- *      data: // value for 'data'
- *   },
- * });
- */
-export function useCreateProfileMutation(baseOptions?: Apollo.MutationHookOptions<CreateProfileMutation, CreateProfileMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateProfileMutation, CreateProfileMutationVariables>(CreateProfileDocument, options);
-      }
-export type CreateProfileMutationHookResult = ReturnType<typeof useCreateProfileMutation>;
-export type CreateProfileMutationResult = Apollo.MutationResult<CreateProfileMutation>;
-export type CreateProfileMutationOptions = Apollo.BaseMutationOptions<CreateProfileMutation, CreateProfileMutationVariables>;
+export type CreateProfileMutation = { __typename?: 'Mutation', CreateProfile: { __typename?: 'ICreateProfileResponse', profileId: string } };
+
+export type EditProfessionalProfileMutationVariables = Exact<{
+  data: IEditProfilePayload;
+}>;
+
+
+export type EditProfessionalProfileMutation = { __typename?: 'Mutation', EditProfessionalProfile: { __typename?: 'IEditProfileResponse', profile: { __typename?: 'Profile', profileType: string, id: string } } };
+
+export type DeleteProfessionalMutationVariables = Exact<{
+  data: IDeleteProfessionalPayload;
+}>;
+
+
+export type DeleteProfessionalMutation = { __typename?: 'Mutation', DeleteProfessional: { __typename?: 'IDeleteProfessionalResponse', status: string, success: boolean } };
+
+
 export const LoginDocument = gql`
     mutation Login($data: ILoginPayload!) {
   Login(data: $data) {
@@ -490,3 +471,106 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const CreateProfileDocument = gql`
+    mutation CreateProfile($data: ICreateProfilePayload!) {
+  CreateProfile(data: $data) {
+    profileId
+  }
+}
+    `;
+export type CreateProfileMutationFn = Apollo.MutationFunction<CreateProfileMutation, CreateProfileMutationVariables>;
+
+/**
+ * __useCreateProfileMutation__
+ *
+ * To run a mutation, you first call `useCreateProfileMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateProfileMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createProfileMutation, { data, loading, error }] = useCreateProfileMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateProfileMutation(baseOptions?: Apollo.MutationHookOptions<CreateProfileMutation, CreateProfileMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateProfileMutation, CreateProfileMutationVariables>(CreateProfileDocument, options);
+      }
+export type CreateProfileMutationHookResult = ReturnType<typeof useCreateProfileMutation>;
+export type CreateProfileMutationResult = Apollo.MutationResult<CreateProfileMutation>;
+export type CreateProfileMutationOptions = Apollo.BaseMutationOptions<CreateProfileMutation, CreateProfileMutationVariables>;
+export const EditProfessionalProfileDocument = gql`
+    mutation EditProfessionalProfile($data: IEditProfilePayload!) {
+  EditProfessionalProfile(data: $data) {
+    profile {
+      profileType
+      id
+    }
+  }
+}
+    `;
+export type EditProfessionalProfileMutationFn = Apollo.MutationFunction<EditProfessionalProfileMutation, EditProfessionalProfileMutationVariables>;
+
+/**
+ * __useEditProfessionalProfileMutation__
+ *
+ * To run a mutation, you first call `useEditProfessionalProfileMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditProfessionalProfileMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editProfessionalProfileMutation, { data, loading, error }] = useEditProfessionalProfileMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useEditProfessionalProfileMutation(baseOptions?: Apollo.MutationHookOptions<EditProfessionalProfileMutation, EditProfessionalProfileMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<EditProfessionalProfileMutation, EditProfessionalProfileMutationVariables>(EditProfessionalProfileDocument, options);
+      }
+export type EditProfessionalProfileMutationHookResult = ReturnType<typeof useEditProfessionalProfileMutation>;
+export type EditProfessionalProfileMutationResult = Apollo.MutationResult<EditProfessionalProfileMutation>;
+export type EditProfessionalProfileMutationOptions = Apollo.BaseMutationOptions<EditProfessionalProfileMutation, EditProfessionalProfileMutationVariables>;
+export const DeleteProfessionalDocument = gql`
+    mutation DeleteProfessional($data: IDeleteProfessionalPayload!) {
+  DeleteProfessional(data: $data) {
+    status
+    success
+  }
+}
+    `;
+export type DeleteProfessionalMutationFn = Apollo.MutationFunction<DeleteProfessionalMutation, DeleteProfessionalMutationVariables>;
+
+/**
+ * __useDeleteProfessionalMutation__
+ *
+ * To run a mutation, you first call `useDeleteProfessionalMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteProfessionalMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteProfessionalMutation, { data, loading, error }] = useDeleteProfessionalMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useDeleteProfessionalMutation(baseOptions?: Apollo.MutationHookOptions<DeleteProfessionalMutation, DeleteProfessionalMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteProfessionalMutation, DeleteProfessionalMutationVariables>(DeleteProfessionalDocument, options);
+      }
+export type DeleteProfessionalMutationHookResult = ReturnType<typeof useDeleteProfessionalMutation>;
+export type DeleteProfessionalMutationResult = Apollo.MutationResult<DeleteProfessionalMutation>;
+export type DeleteProfessionalMutationOptions = Apollo.BaseMutationOptions<DeleteProfessionalMutation, DeleteProfessionalMutationVariables>;

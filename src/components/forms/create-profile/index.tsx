@@ -51,7 +51,7 @@ import {
 import Divider from './components/Divider';
 import { formSchema } from './utils/formSchema';
 
-import { CREATE_PROFESSIONAL } from '@/api/graphql/mutations/createProfessional';
+import { CREATE_PROFILE } from '@/api/graphql/mutations/profile';
 import { birthDateDefault } from '@/utils/constant';
 import { useMutation } from '@apollo/client';
 import { toast } from 'sonner';
@@ -70,7 +70,7 @@ export default function CreateProfileForm({
   const [filteredCities, setFilteredCities] = useState<City[]>([]);
   const [cepCity, setCepCity] = useState(null);
 
-  const [createProfessional] = useMutation(CREATE_PROFESSIONAL);
+  const [createProfessional] = useMutation(CREATE_PROFILE);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
