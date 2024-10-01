@@ -1,5 +1,5 @@
-import Vagas from './vagas/page';
+import AdminLogin from './(public)/login/page';
 
 export default function Home() {
-  return <Vagas />;
+  return <AdminLogin />;
 }

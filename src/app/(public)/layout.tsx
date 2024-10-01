@@ -17,13 +17,11 @@ type LoginLayoutProps = {
 
 export default function LoginLayout({ children }: LoginLayoutProps) {
   return (
-    <html lang='en'>
-      <body
-        className={`${alice.variable} ${roxborough.variable} font-sans `}
-        suppressHydrationWarning={true}
-      >
-        <main>{children}</main>
-      </body>
-    </html>
+    <div
+      className={`${alice.variable} ${roxborough.variable} font-sans `}
+      suppressHydrationWarning={true}
+    >
+      <main>{children}</main>
+    </div>
   );
 }

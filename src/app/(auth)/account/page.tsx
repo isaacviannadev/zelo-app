@@ -21,7 +21,7 @@ import { Textarea } from '@/components/ui/textarea';
 
 export default function Account() {
   return (
-    <main className='flex min-h-[calc(100vh_-_theme(spacing.16))] bg-gray-100/40 flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10 dark:bg-gray-800/40 '>
+    <section className='flex min-h-[calc(100vh_-_theme(spacing.16))] bg-gray-100/40 flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10 dark:bg-gray-800/40 '>
       <div className='grid gap-4 lg:grid-cols-[1fr_400px] mx-auto max-w-7xl'>
         <div className='flex flex-col gap-4'>
           <Card>
@@ -32,9 +32,7 @@ export default function Account() {
                   <AvatarFallback>IV</AvatarFallback>
                 </Avatar>
                 <div>
-                  <CardTitle>
-                    <h1>Isaac dos Santos Vianna</h1>
-                  </CardTitle>
+                  <CardTitle>Isaac dos Santos Vianna</CardTitle>
                   <p className='text-sm text-gray-500 dark:text-gray-400'>
                     Cuidador de Idosos
                   </p>
@@ -66,9 +64,7 @@ export default function Account() {
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>
-                <h1>Histórico de Trabalhos</h1>
-              </CardTitle>
+              <CardTitle>Histórico de Trabalhos</CardTitle>
             </CardHeader>
             <CardContent>
               <div className='grid gap-4'>
@@ -107,9 +103,7 @@ export default function Account() {
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>
-                <h1>Certificados</h1>
-              </CardTitle>
+              <CardTitle>Certificados</CardTitle>
             </CardHeader>
             <CardContent>
               <div className='grid gap-4'>
@@ -136,12 +130,10 @@ export default function Account() {
           </Card>
         </div>
         <div className='flex flex-col gap-4'>
-          <PremiumBanner  />
+          <PremiumBanner />
           <Card>
             <CardHeader>
-              <CardTitle>
-                <h1>Agenda da Semana</h1>
-              </CardTitle>
+              <CardTitle>Agenda da Semana</CardTitle>
             </CardHeader>
             <CardContent>
               <div className='grid gap-4'>
@@ -200,9 +192,7 @@ export default function Account() {
 
           <Card>
             <CardHeader>
-              <CardTitle>
-                <h1>Preferências e Disponibilidade</h1>
-              </CardTitle>
+              <CardTitle>Preferências e Disponibilidade</CardTitle>
             </CardHeader>
             <CardContent>
               <div className='grid gap-4'>
@@ -234,6 +224,6 @@ export default function Account() {
           </Card>
         </div>
       </div>
-    </main>
+    </section>
   );
 }
