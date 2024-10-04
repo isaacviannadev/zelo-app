@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 
+import { GoogleTagManager } from '@next/third-parties/google';
+
 import { Toaster } from 'sonner';
 
 import './globals.css';
@@ -24,6 +26,9 @@ export const metadata: Metadata = {
 export const Head = () => {
   return (
     <head>
+      {/* <!-- Google Tag Manager --> */}
+      <GoogleTagManager gtmId='GTM-PJLSTC5R' />
+
       {/* <!-- Open Graph / Facebook --> */}
       <meta property='og:type' content='website' />
       <meta property='og:url' content='https://www.zeloclub.com.br/' />
@@ -69,6 +74,17 @@ export default function RootLayout({
           <div className='flex flex-col min-h-screen'>{children}</div>
           <Toaster position='top-right' richColors />
         </Providers>
+        {/* <!-- Google Tag Manager (noscript) --> */}
+        <noscript>
+          <iframe
+            title='Google Tag Manager zeloclub'
+            src='https://www.googletagmanager.com/ns.html?id=GTM-PJLSTC5R'
+            height='0'
+            width='0'
+            style={{ display: 'none', visibility: 'hidden' }}
+          ></iframe>
+        </noscript>
+        {/* <!-- End Google Tag Manager (noscript) --> */}
       </body>
     </html>
   );
