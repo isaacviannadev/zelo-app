@@ -26,9 +26,6 @@ export const metadata: Metadata = {
 export const Head = () => {
   return (
     <head>
-      {/* <!-- Google Tag Manager --> */}
-      <GoogleTagManager gtmId='GTM-PJLSTC5R' />
-
       {/* <!-- Open Graph / Facebook --> */}
       <meta property='og:type' content='website' />
       <meta property='og:url' content='https://www.zeloclub.com.br/' />
@@ -66,6 +63,8 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <Head />
+      <GoogleTagManager gtmId='GTM-PJLSTC5R' />
+
       <body
         className={`${alice.variable} ${roxborough.variable} font-sans `}
         suppressHydrationWarning={true}

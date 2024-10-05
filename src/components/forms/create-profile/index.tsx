@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -20,7 +19,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import {
   Tooltip,
@@ -52,6 +50,8 @@ import Divider from './components/Divider';
 import { formSchema } from './utils/formSchema';
 
 import { CREATE_PROFILE } from '@/api/graphql/mutations/profile';
+import MultiSelect from '@/components/multiselect';
+import { servicesOptions } from '@/mocks/services';
 import { birthDateDefault } from '@/utils/constant';
 import { useMutation } from '@apollo/client';
 import { toast } from 'sonner';
@@ -62,6 +62,7 @@ type CreateProfileFormProps = {
   states: State[];
   cities: City[];
 };
+
 export default function CreateProfileForm({
   states,
   cities,
@@ -111,6 +112,7 @@ export default function CreateProfileForm({
   const watchState = form.watch('address.state');
   const watchCity = form.watch('address.city');
   const watchProfileType = form.watch('profileType');
+  const watchServices = form.watch('services');
 
   const isProfessionalRegister = watchProfileType === 'PROFESSIONAL';
   const isBackofficeRegister = watchProfileType === 'BACKOFFICE';
@@ -422,18 +424,15 @@ export default function CreateProfileForm({
                     <FormItem>
                       <FormLabel>Serviços Oferecidos</FormLabel>
                       <FormControl>
-                        <Textarea
-                          placeholder='Liste os serviços oferecidos, separados por vírgula'
+                        <MultiSelect
+                          options={servicesOptions}
+                          selectedValues={watchServices}
                           {...field}
                           onChange={(e) => {
-                            field.onChange(e.target.value.split(','));
+                            field.onChange(e);
                           }}
                         />
                       </FormControl>
-                      <FormDescription>
-                        Ex: Cuidados básicos, Administração de medicamentos,
-                        Acompanhamento em consultas
-                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}

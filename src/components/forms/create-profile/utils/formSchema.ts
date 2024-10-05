@@ -50,7 +50,14 @@ const professionalSchema = baseSchema.extend({
   workingArea: z
     .array(z.enum(BrazilianState))
     .min(1, 'Pelo menos um estado é obrigatório'),
-  services: z.array(z.string()).min(1, 'Pelo menos um serviço é obrigatório'),
+  services: z
+    .array(
+      z.object({
+        value: z.string(),
+        label: z.string(),
+      })
+    )
+    .nonempty('Pelo menos um serviço é obrigatório'),
   shiftValue: z.number().positive(),
   address: addressSchema,
   specialty: z.enum(HealthcareRole),
