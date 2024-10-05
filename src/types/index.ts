@@ -53,3 +53,17 @@ export type ViaCepResponse = {
   ddd: string;
   siafi: string;
 };
+
+export type Job = {
+  id: number;
+  title: string;
+  location: string;
+  contract: string;
+  description: string;
+  services?: string[];
+};
+
+export type Option = {
+  value: string;
+  label: string;
+};
