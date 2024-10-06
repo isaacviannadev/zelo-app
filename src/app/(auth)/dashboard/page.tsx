@@ -85,7 +85,10 @@ export default function Dashboard() {
               <div className='grid gap-4'>
                 <div className='flex items-center gap-4'>
                   <Avatar>
-                    <AvatarImage alt='Avatar' src='/placeholder-avatar.jpg' />
+                    <AvatarImage
+                      alt='Avatar'
+                      src='https://zeloclub-public.s3.amazonaws.com/zelo-avatar-placeholder.svg'
+                    />
                     <AvatarFallback>GV</AvatarFallback>
                   </Avatar>
                   <div>
@@ -97,7 +100,10 @@ export default function Dashboard() {
                 </div>
                 <div className='flex items-center gap-4'>
                   <Avatar>
-                    <AvatarImage alt='Avatar' src='/placeholder-avatar.jpg' />
+                    <AvatarImage
+                      alt='Avatar'
+                      src='https://zeloclub-public.s3.amazonaws.com/zelo-avatar-placeholder.svg'
+                    />
                     <AvatarFallback>ES</AvatarFallback>
                   </Avatar>
                   <div>
@@ -109,7 +115,10 @@ export default function Dashboard() {
                 </div>
                 <div className='flex items-center gap-4'>
                   <Avatar>
-                    <AvatarImage alt='Avatar' src='/placeholder-avatar.jpg' />
+                    <AvatarImage
+                      alt='Avatar'
+                      src='https://zeloclub-public.s3.amazonaws.com/zelo-avatar-placeholder.svg'
+                    />
                     <AvatarFallback>VG</AvatarFallback>
                   </Avatar>
                   <div>
@@ -130,7 +139,10 @@ export default function Dashboard() {
               <div className='grid gap-4'>
                 <div className='flex items-start gap-4'>
                   <Avatar>
-                    <AvatarImage alt='Avatar' src='/placeholder-avatar.jpg' />
+                    <AvatarImage
+                      alt='Avatar'
+                      src='https://zeloclub-public.s3.amazonaws.com/zelo-avatar-placeholder.svg'
+                    />
                     <AvatarFallback>JD</AvatarFallback>
                   </Avatar>
                   <div>
@@ -143,7 +155,10 @@ export default function Dashboard() {
                 </div>
                 <div className='flex items-start gap-4'>
                   <Avatar>
-                    <AvatarImage alt='Avatar' src='/placeholder-avatar.jpg' />
+                    <AvatarImage
+                      alt='Avatar'
+                      src='https://zeloclub-public.s3.amazonaws.com/zelo-avatar-placeholder.svg'
+                    />
                     <AvatarFallback>AA</AvatarFallback>
                   </Avatar>
                   <div>
@@ -156,7 +171,10 @@ export default function Dashboard() {
                 </div>
                 <div className='flex items-start gap-4'>
                   <Avatar>
-                    <AvatarImage alt='Avatar' src='/placeholder-avatar.jpg' />
+                    <AvatarImage
+                      alt='Avatar'
+                      src='https://zeloclub-public.s3.amazonaws.com/zelo-avatar-placeholder.svg'
+                    />
                     <AvatarFallback>SG</AvatarFallback>
                   </Avatar>
                   <div>

@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
-import { LOGIN } from '@/api/graphql/mutations/login';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -16,10 +15,9 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useMutation } from '@apollo/client';
+import { AuthContext } from '@/contexts/AuthContext';
 import { Loader2, LockIcon, MailIcon } from 'lucide-react';
-import { useState } from 'react';
-import { toast } from 'sonner';
+import { useContext } from 'react';
 
 type LoginFormData = z.infer<typeof formSchema>;
 
@@ -29,9 +27,7 @@ const formSchema = z.object({
 });
 
 export default function AdminLogin() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const [login] = useMutation(LOGIN);
+  const { signIn, isSubmitting } = useContext(AuthContext);
 
   const form = useForm<LoginFormData>({
     resolver: zodResolver(formSchema),
@@ -42,20 +38,8 @@ export default function AdminLogin() {
     },
   });
 
-  const onSubmit = async (data: LoginFormData) => {
-    setIsSubmitting(true);
-    try {
-      const variables = {
-        data,
-      };
-
-      await login({ variables });
-      toast.success('Bem-vindo ao ZeloClub!');
-    } catch (error) {
-      toast.error('Não foi possível fazer login. Verifique suas credenciais.');
-    } finally {
-      setIsSubmitting(false);
-    }
+  const onSubmit = async ({ username, password }: LoginFormData) => {
+    await signIn({ username, password });
   };
 
   return (
