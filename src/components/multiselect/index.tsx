@@ -1,7 +1,14 @@
-import { Option } from '@/types';
-import { CheckIcon, ChevronsUpDown } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
+
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
+import { CheckIcon, ChevronsUpDown, Eraser } from 'lucide-react';
 import { Pill } from './pill';
+
+import { Option } from '@/types';
 
 type MultiSelectProps = {
   options: Option[];
@@ -29,6 +36,10 @@ const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>(
       }
     };
 
+    const clearSelection = () => {
+      onChange([]);
+    };
+
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape' || event.key === 'Tab') {
         setIsOpen(false);
@@ -48,6 +59,7 @@ const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>(
         highlightedIndex !== null
       ) {
         event.preventDefault();
+        
         handleSelect(options[highlightedIndex]);
       }
     };
@@ -74,6 +86,20 @@ const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>(
 
     return (
       <div className='relative' ref={wrapperRef}>
+        {selectedValues.length > 0 && (
+          <Tooltip>
+            <TooltipTrigger
+              type='button'
+              className='absolute p-2 right-2 rounded-ss-xl rounded-se-xl bottom-full shrink-0 opacity-50 bg-red-200 text-red-500'
+              onClick={clearSelection}
+            >
+              <Eraser className='h-4 w-6' />
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Limpar seleção</p>
+            </TooltipContent>
+          </Tooltip>
+        )}
         <button
           type='button'
           onClick={handleToggle}
