@@ -8,18 +8,15 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Separator } from '@/components/ui/separator';
-import { UserType } from '@/types/user';
+import { AuthContext } from '@/contexts/AuthContext';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { LogoutIcon, SettingsIcon, UserIcon } from '../icons';
 import Navigation from '../navigation';
 
-export type HeaderProps = {
-  user: UserType | null;
-};
-
-export default function Header({ user }: HeaderProps) {
+export default function Header() {
   const [scroll, setScroll] = useState(false);
+  const { user, signOut } = useContext(AuthContext);
 
   const handleScroll = () => {
     const offset = window.scrollY;
@@ -54,7 +51,10 @@ export default function Header({ user }: HeaderProps) {
             <DropdownMenuTrigger asChild>
               <Button className='rounded-full' size='icon' variant='ghost'>
                 <Avatar>
-                  <AvatarImage alt='Avatar' src='/placeholder-avatar.jpg' />
+                  <AvatarImage
+                    alt='Avatar'
+                    src='https://zeloclub-public.s3.amazonaws.com/zelo-avatar-placeholder.svg'
+                  />
                   <AvatarFallback>IS</AvatarFallback>
                 </Avatar>
                 <span className='sr-only'>Toggle user menu</span>
@@ -74,7 +74,7 @@ export default function Header({ user }: HeaderProps) {
                 </DropdownMenuItem>
               </Link>
               <Separator />
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={signOut}>
                 <LogoutIcon className='w-4 h-4 mr-2' />
                 Logout
               </DropdownMenuItem>
