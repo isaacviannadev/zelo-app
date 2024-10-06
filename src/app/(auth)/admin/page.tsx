@@ -193,7 +193,7 @@ export default async function AdminArea() {
                           <Avatar>
                             <AvatarImage
                               alt='Avatar'
-                              src='/placeholder-avatar.jpg'
+                              src='https://zeloclub-public.s3.amazonaws.com/zelo-avatar-placeholder.svg'
                             />
                             <AvatarFallback>MS</AvatarFallback>
                           </Avatar>
