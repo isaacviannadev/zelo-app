@@ -7,7 +7,6 @@ import * as z from 'zod';
 
 import { LOGIN } from '@/api/graphql/mutations/login';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 import {
   Form,
   FormControl,
@@ -18,16 +17,15 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useMutation } from '@apollo/client';
-import { LockIcon, MailIcon } from 'lucide-react';
+import { Loader2, LockIcon, MailIcon } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
 type LoginFormData = z.infer<typeof formSchema>;
 
 const formSchema = z.object({
-  email: z.string().email('Email inválido'),
+  username: z.string(),
   password: z.string(),
-  rememberMe: z.boolean().default(false),
 });
 
 export default function AdminLogin() {
@@ -39,9 +37,8 @@ export default function AdminLogin() {
     resolver: zodResolver(formSchema),
     mode: 'all',
     defaultValues: {
-      email: '',
+      username: '',
       password: '',
-      rememberMe: false,
     },
   });
 
@@ -62,9 +59,9 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className='min-h-screen flex flex-col md:flex-row'>
+    <div className='min-h-screen flex flex-col md:flex-row overflow-x-hidden'>
       {/* Seção do formulário */}
-      <div className='flex-1 flex items-center justify-center p-10'>
+      <section className='flex-1 flex items-center justify-center p-10 animate-enterFromRight'>
         <div className='w-full max-w-md space-y-8'>
           <div className='text-center'>
             <h2 className='mt-6 text-3xl font-bold text-gray-900'>
@@ -83,10 +80,10 @@ export default function AdminLogin() {
               <div className='flex flex-col gap-2 rounded-md shadow-sm'>
                 <FormField
                   control={form.control}
-                  name='email'
+                  name='username'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel htmlFor='email' className='sr-only'>
+                      <FormLabel htmlFor='username' className='sr-only'>
                         Endereço de Email
                       </FormLabel>
                       <FormControl>
@@ -96,7 +93,7 @@ export default function AdminLogin() {
                             size={20}
                           />
                           <Input
-                            id='email'
+                            id='username'
                             type='email'
                             autoComplete='email'
                             className='pl-10 rounded-t-md'
@@ -139,7 +136,7 @@ export default function AdminLogin() {
                 />
               </div>
 
-              <div className='flex items-center justify-between'>
+              {/* <div className='flex items-center justify-between'>
                 <FormField
                   control={form.control}
                   name='rememberMe'
@@ -166,7 +163,7 @@ export default function AdminLogin() {
                     Esqueceu sua senha?
                   </Link>
                 </div>
-              </div>
+              </div> */}
 
               <Button
                 type='submit'
@@ -174,32 +171,46 @@ export default function AdminLogin() {
                 className='w-full'
                 disabled={isSubmitting}
               >
+                {isSubmitting && (
+                  <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                )}
                 {isSubmitting ? 'Carregando...' : 'Entrar'}
               </Button>
             </form>
           </Form>
 
-          <p className='mt-2 text-center text-sm text-gray-600'>
-            Ao acessar, você concorda com os{' '}
-            <Link
-              href='#'
-              className='font-medium text-brand-600 hover:text-brand-500'
-            >
-              Termos de Serviço
-            </Link>
-          </p>
+          <div>
+            <p className='mt-2 text-center text-sm text-gray-600'>
+              Ao acessar, você concorda com os{' '}
+              <Link
+                href='#'
+                className='font-medium text-brand-600 hover:text-brand-500'
+              >
+                Termos de Serviço
+              </Link>
+            </p>
+            <p className=' text-center text-sm text-gray-600'>
+              Não tem uma conta?{' '}
+              <Link
+                href='register'
+                className='font-medium text-brand-600 hover:text-brand-500'
+              >
+                Registre-se agora
+              </Link>
+            </p>
+          </div>
         </div>
-      </div>
+      </section>
 
       {/* Seção de imagem/gradiente */}
-      <div className='flex-1 bg-gradient-to-br from-brand-200 to-brand-700 hidden md:block'>
+      <section className='flex-1 bg-gradient-to-br from-brand-200 to-brand-700 hidden md:block animate-enterFromLeft'>
         <div className='flex items-center justify-center h-full'>
           <div className='text-white text-center'>
             <h1 className='text-2xl font-bold mb-4'>Bem-vindo a </h1>
             <h1 className='text-7xl font-bold mb-4 text-black'>zeloclub</h1>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

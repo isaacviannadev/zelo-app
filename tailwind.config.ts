@@ -108,6 +108,40 @@ const config = {
             transform: 'translateY(-50%)',
           },
         },
+        fadeIn: {
+          '0%': {
+            opacity: '0',
+            transform: 'translateY(-100%)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateY(0)',
+          },
+        },
+        fade: {
+          '0%': {
+            opacity: '0',
+          },
+          '100%': {
+            opacity: '1',
+          },
+        },
+        enterFromLeft: {
+          '0%': {
+            transform: 'translateX(-100%)',
+          },
+          '100%': {
+            transform: 'translateX(0)',
+          },
+        },
+        enterFromRight: {
+          '0%': {
+            transform: 'translateX(100%)',
+          },
+          '100%': {
+            transform: 'translateX(0)',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -117,6 +151,10 @@ const config = {
         third: 'moveInCircle 40s linear infinite',
         fourth: 'moveHorizontal 40s ease infinite',
         fifth: 'moveInCircle 20s ease infinite',
+        fadeIn: 'fadeIn 5s ease-out',
+        fade: 'fade 5s ease-out',
+        enterFromLeft: 'enterFromLeft 0.5s ease-out',
+        enterFromRight: 'enterFromRight 0.5s ease-out',
       },
       backgroundImage: {
         'hero-premium': "url('/premium-banner.png')",
