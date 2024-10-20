@@ -44,8 +44,18 @@ export default function AdminLogin() {
 
   return (
     <div className='min-h-screen flex flex-col md:flex-row overflow-x-hidden'>
+      {/* Seção de imagem/gradiente */}
+      <section className='flex-1 bg-gradient-to-br from-brand-200 to-brand-700 hidden md:block '>
+        <div className='flex items-center justify-center h-full'>
+          <div className='text-white text-center'>
+            <h1 className='text-2xl font-bold mb-4'>Bem-vindo a </h1>
+            <h1 className='text-7xl font-bold mb-4 text-black'>zeloclub</h1>
+          </div>
+        </div>
+      </section>
+
       {/* Seção do formulário */}
-      <section className='flex-1 flex items-center justify-center p-10 animate-enterFromRight'>
+      <section className='flex-1 flex items-center justify-center p-10 '>
         <div className='w-full max-w-md space-y-8'>
           <div className='text-center'>
             <h2 className='mt-6 text-3xl font-bold text-gray-900'>
@@ -182,16 +192,6 @@ export default function AdminLogin() {
                 Registre-se agora
               </Link>
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Seção de imagem/gradiente */}
-      <section className='flex-1 bg-gradient-to-br from-brand-200 to-brand-700 hidden md:block animate-enterFromLeft'>
-        <div className='flex items-center justify-center h-full'>
-          <div className='text-white text-center'>
-            <h1 className='text-2xl font-bold mb-4'>Bem-vindo a </h1>
-            <h1 className='text-7xl font-bold mb-4 text-black'>zeloclub</h1>
           </div>
         </div>
       </section>
