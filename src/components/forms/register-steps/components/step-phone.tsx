@@ -2,46 +2,35 @@
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { phoneMask } from '@/utils/formatters';
+import { CircleAlert } from 'lucide-react';
 import { useFormContext } from 'react-hook-form';
 import { StepsProps } from '../types';
 
 export default function StepPhone({ nextStep, prevStep }: Partial<StepsProps>) {
   const {
     register,
-    watch,
-    setError,
-    clearErrors,
     formState: { errors },
   } = useFormContext();
 
-  const watchPhone = watch('phone');
-
   const handleNextStep = () => {
-    if (!watchPhone) {
-      setError('phone', {
-        type: 'manual',
-        message: 'Telefone é obrigatório',
-      });
-      return;
-    }
-
-    if (!errors.phone || watchPhone !== '') {
-      clearErrors('phone');
+    if (!errors.phone) {
       nextStep && nextStep();
     }
   };
 
   return (
     <div className='flex flex-col gap-2'>
-      <h2 className='text-xl'>
+      <h2 className='text-xl mb-8'>
         Qual o melhor número de telefone para contato?
       </h2>
-      <label htmlFor='phone'>Telefone</label>
+      <Label htmlFor='phone'>Telefone</Label>
       <Input
         id='phone'
         placeholder='(00) 00000-0000'
         maxLength={15}
+        autoFocus
         {...register('phone', {
           onChange: (e) => {
             e.target.value = phoneMask(e.target.value);
@@ -49,18 +38,12 @@ export default function StepPhone({ nextStep, prevStep }: Partial<StepsProps>) {
         })}
       />
       {errors.phone && (
-        <span className='text-red-500 text-sm'>
+        <small className='inline-flex items-center gap-1 text-red-500 text-xs'>
+          <CircleAlert size={12} />
           {errors.phone.message?.toString()}
-        </span>
+        </small>
       )}
-      <div
-        className='
-        flex
-        flex-row
-        justify-end
-         mt-8
-        '
-      >
+      <div className='flex flex-row justify-end mt-8 gap-2'>
         <Button variant={'outline'} type='button' onClick={prevStep}>
           Voltar
         </Button>

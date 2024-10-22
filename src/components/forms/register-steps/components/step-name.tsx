@@ -2,53 +2,36 @@
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { CircleAlert } from 'lucide-react';
 import { useFormContext } from 'react-hook-form';
 import { StepsProps } from '../types';
 
 export default function StepName({ nextStep }: Partial<StepsProps>) {
   const {
     register,
-    watch,
-    setError,
-    clearErrors,
     formState: { errors },
   } = useFormContext();
 
-  const watchName = watch('name');
   const handleNextStep = () => {
-    if (!watchName) {
-      setError('name', {
-        type: 'manual',
-        message: 'Nome é obrigatório',
-      });
-      return;
-    }
-
-    if (!errors.name || watchName !== '') {
-      clearErrors('name');
+    if (!errors.name) {
       nextStep && nextStep();
     }
   };
 
   return (
     <div className='flex flex-col gap-2'>
-      <h2 className='text-xl mb-4'>Como você gostaria de ser chamado?</h2>
-      <label htmlFor='name'>Nome</label>
-      <Input id='name' {...register('name')} />
+      <h2 className='text-xl mb-8'>Como você gostaria de ser chamado?</h2>
+      <Label htmlFor='name'>Nome</Label>
+      <Input id='name' {...register('name')} autoFocus />
       {errors.name && (
-        <span className='text-red-500 text-sm'>
+        <small className='inline-flex items-center gap-1 text-red-500 text-xs'>
+          <CircleAlert size={12} />
           {errors.name.message?.toString()}
-        </span>
+        </small>
       )}
 
-      <div
-        className='
-        flex
-        flex-row
-        justify-end
-        mt-8
-        '
-      >
+      <div className='flex flex-row justify-end mt-8 gap-2'>
         <Button type='button' onClick={handleNextStep}>
           Próximo
         </Button>

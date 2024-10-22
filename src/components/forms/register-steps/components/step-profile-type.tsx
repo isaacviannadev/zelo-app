@@ -1,47 +1,90 @@
 'use client';
 
-import { ProfileTypes } from '@/components/forms/create-profile/__mocks__';
 import { Button } from '@/components/ui/button';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { cn } from '@/lib/utils';
+import { ProfileType } from '@/types';
+import { CheckCircle2Icon } from 'lucide-react';
+import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
+import {
+  crossProfileTypes,
+  ProfileTypes,
+} from '../../create-profile/__mocks__';
 import { StepsProps } from '../types';
 
 export default function StepProfileType({
   prevStep,
   onSubmit,
 }: Partial<StepsProps>) {
-  const { register } = useFormContext();
+  const { setValue } = useFormContext();
+  const [profileType, setProfileType] = useState<ProfileType>(ProfileTypes[1]);
+
+  const selectedProfileType = `border-brand-800 shadow-md`;
+
+  const handleProfileType = (type: ProfileType) => {
+    setValue('profileType', type);
+    setProfileType(type);
+  };
 
   return (
     <div className='flex flex-col gap-2'>
-      <h2 className='text-xl'>O que você deseja fazer com o seu perfil?</h2>
-      <label htmlFor='profileType'>Tipo de Perfil</label>
-      <Select {...register('profileType')}>
-        <SelectTrigger>
-          <SelectValue placeholder='Selecione o tipo de perfil' />
-        </SelectTrigger>
-        <SelectContent>
-          {ProfileTypes.map((type) => (
-            <SelectItem key={type} value={type}>
-              {type}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-      <div
-        className='
-        flex
-        flex-row
-        justify-end
-      mt-8
-        '
+      <h2 className='text-xl mb-8'>
+        O que você deseja fazer com o seu perfil?
+      </h2>
+      <RadioGroup
+        defaultValue={profileType}
+        onValueChange={(value) => handleProfileType(value as ProfileType)}
+        className='flex flex-row '
       >
+        <Label
+          htmlFor={ProfileTypes[1]}
+          className={cn(
+            `flex flex-col w-full p-4 gap-4 bg-white border border-slate-200 rounded-xl items-center cursor-pointer relative`,
+            profileType === ProfileTypes[1] ? selectedProfileType : ''
+          )}
+        >
+          <div className='flex flex-col gap-4'>
+            <span>{crossProfileTypes[ProfileTypes[1]]}</span>
+            <RadioGroupItem
+              value={ProfileTypes[1]}
+              id={ProfileTypes[1]}
+              className='hidden'
+            />
+            {profileType === ProfileTypes[1] && (
+              <CheckCircle2Icon className='absolute top-2 right-2 w-6 h-6 text-white fill-brand-400' />
+            )}
+            <span className='text-sm text-slate-500'>
+              Se você busca por cuidadores para você ou alguém da sua família.
+            </span>
+          </div>
+        </Label>
+        <Label
+          htmlFor={ProfileTypes[0]}
+          className={cn(
+            `flex flex-col w-full p-4 gap-4 bg-white border border-slate-200 rounded-xl items-center cursor-pointer relative`,
+            profileType === ProfileTypes[0] ? selectedProfileType : ''
+          )}
+        >
+          <div className='flex flex-col gap-4'>
+            <span>{crossProfileTypes[ProfileTypes[0]]}</span>
+            <RadioGroupItem
+              value={ProfileTypes[0]}
+              id={ProfileTypes[0]}
+              className='hidden'
+            />
+            {profileType === ProfileTypes[0] && (
+              <CheckCircle2Icon className='absolute top-2 right-2 w-6 h-6 text-white fill-brand-400' />
+            )}
+            <span className='text-sm text-slate-500'>
+              Se você é um profissional de saúde e deseja atender pacientes.
+            </span>
+          </div>
+        </Label>
+      </RadioGroup>
+
+      <div className='flex flex-row justify-end mt-8 gap-2'>
         <Button variant={'outline'} type='button' onClick={prevStep}>
           Voltar
         </Button>

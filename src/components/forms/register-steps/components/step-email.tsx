@@ -2,54 +2,36 @@
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { CircleAlert } from 'lucide-react';
 import { useFormContext } from 'react-hook-form';
 import { StepsProps } from '../types';
 
 export default function StepEmail({ nextStep, prevStep }: Partial<StepsProps>) {
   const {
     register,
-    watch,
-    setError,
-    clearErrors,
     formState: { errors },
   } = useFormContext();
 
-  const watchEmail = watch('email');
-
   const handleNextStep = () => {
-    if (!watchEmail) {
-      setError('email', {
-        type: 'manual',
-        message: 'Email é obrigatório',
-      });
-      return;
-    }
-
-    if (!errors.email || watchEmail !== '') {
-      clearErrors('email');
+    if (!errors.email) {
       nextStep && nextStep();
     }
   };
 
   return (
     <div className='flex flex-col gap-2'>
-      <h2 className='text-xl'>Qual o seu email?</h2>
-      <label htmlFor='email'>Email</label>
-      <Input id='email' {...register('email')} />
+      <h2 className='text-xl mb-8'>Qual o seu email?</h2>
+      <Label htmlFor='email'>Email</Label>
+      <Input id='email' {...register('email')} autoFocus />
       {errors.email && (
-        <span className='text-red-500 text-sm'>
+        <small className='inline-flex items-center gap-1 text-red-500 text-xs'>
+          <CircleAlert size={12} />
           {errors.email.message?.toString()}
-        </span>
+        </small>
       )}
 
-      <div
-        className='
-        flex
-        flex-row
-        justify-end
-        mt-8
-        '
-      >
+      <div className='flex flex-row justify-end mt-8 gap-2'>
         <Button variant={'outline'} type='button' onClick={prevStep}>
           Voltar
         </Button>

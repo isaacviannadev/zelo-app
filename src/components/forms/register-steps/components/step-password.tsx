@@ -2,6 +2,8 @@
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { CircleAlert } from 'lucide-react';
 import { useFormContext } from 'react-hook-form';
 import { StepsProps } from '../types';
 
@@ -11,35 +13,48 @@ export default function StepPassword({
 }: Partial<StepsProps>) {
   const {
     register,
-    formState: { isValid },
+    watch,
+    formState: { errors },
   } = useFormContext();
 
+  const watchPassword = watch('password');
   const handleNextStep = () => {
-    if (isValid) {
+    if (!errors.password || !errors.confirmPassword || watchPassword !== '') {
       nextStep && nextStep();
     }
   };
 
   return (
     <div className='flex flex-col gap-2'>
-      <h2 className='text-xl'>Defina uma senha para acessar sua conta</h2>
-      <label htmlFor='password'>Senha</label>
-      <Input id='password' type='password' {...register('password')} />
-      <label htmlFor='confirmPassword'>Confirmar Senha</label>
+      <h2 className='text-xl mb-8'>Defina uma senha para acessar sua conta</h2>
+      <Label htmlFor='password'>Senha</Label>
+      <Input
+        id='password'
+        type='password'
+        {...register('password')}
+        autoFocus
+      />
+      <Label htmlFor='confirmPassword'>Confirmar Senha</Label>
       <Input
         id='confirmPassword'
         type='password'
         {...register('confirmPassword')}
       />
 
-      <div
-        className='
-        flex
-        flex-row
-        justify-end
-         mt-8
-        '
-      >
+      {errors.password && (
+        <small className='inline-flex items-center gap-1 text-red-500 text-xs'>
+          <CircleAlert size={12} />
+          {errors.password.message?.toString()}
+        </small>
+      )}
+      {errors.confirmPassword && (
+        <small className='inline-flex items-center gap-1 text-red-500 text-xs'>
+          <CircleAlert size={12} />
+          {errors.confirmPassword.message?.toString()}
+        </small>
+      )}
+
+      <div className='flex flex-row justify-end mt-8 gap-2'>
         <Button variant={'outline'} type='button' onClick={prevStep}>
           Voltar
         </Button>
