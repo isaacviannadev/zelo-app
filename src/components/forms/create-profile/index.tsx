@@ -1,7 +1,18 @@
 'use client';
 
+import { CREATE_PROFILE } from '@/api/graphql/mutations/profile';
+import { useMutation } from '@apollo/client';
+import { toast } from 'sonner';
+
 import { getAddressByCep } from '@/api/address';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { TrashIcon } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { useFieldArray, useForm } from 'react-hook-form';
+import { z } from 'zod';
+
 import { PlusIcon } from '@/components/icons';
+import MultiSelect from '@/components/multiselect';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -25,13 +36,8 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { City, ProfileType, State } from '@/types';
-import { formatCep } from '@/utils/formatters';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { TrashIcon } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { useFieldArray, useForm } from 'react-hook-form';
-import { z } from 'zod';
+import Divider from './components/Divider';
+
 import {
   CertificationTypes,
   ContactTypes,
@@ -46,15 +52,12 @@ import {
   HealthcareRole,
   ProfileTypes,
 } from './__mocks__';
-import Divider from './components/Divider';
-import { formSchema } from './utils/formSchema';
 
-import { CREATE_PROFILE } from '@/api/graphql/mutations/profile';
-import MultiSelect from '@/components/multiselect';
 import { servicesOptions } from '@/mocks/services';
+import { City, ProfileType, State } from '@/types';
 import { birthDateDefault } from '@/utils/constant';
-import { useMutation } from '@apollo/client';
-import { toast } from 'sonner';
+import { formatCep } from '@/utils/formatters';
+import { formSchema } from './utils/formSchema';
 
 type FormValues = z.infer<typeof formSchema>;
 

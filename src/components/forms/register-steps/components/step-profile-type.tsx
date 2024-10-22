@@ -1,17 +1,20 @@
 'use client';
 
+import { useState } from 'react';
+import { useFormContext } from 'react-hook-form';
+
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { cn } from '@/lib/utils';
-import { ProfileType } from '@/types';
 import { CheckCircle2Icon } from 'lucide-react';
-import { useState } from 'react';
-import { useFormContext } from 'react-hook-form';
+
+import { cn } from '@/lib/utils';
 import {
   crossProfileTypes,
   ProfileTypes,
 } from '../../create-profile/__mocks__';
+
+import { ProfileType } from '@/types';
 import { StepsProps } from '../types';
 
 export default function StepProfileType({
@@ -19,6 +22,7 @@ export default function StepProfileType({
   onSubmit,
 }: Partial<StepsProps>) {
   const { setValue } = useFormContext();
+
   const [profileType, setProfileType] = useState<ProfileType>(ProfileTypes[1]);
 
   const selectedProfileType = `border-brand-800 shadow-md`;

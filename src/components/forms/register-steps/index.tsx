@@ -3,6 +3,9 @@
 import Form from 'next/form';
 import { useEffect, useState } from 'react';
 
+import { CREATE_PROFILE } from '@/api/graphql/mutations/profile';
+import { useMutation } from '@apollo/client';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
 import * as z from 'zod';
@@ -10,6 +13,8 @@ import * as z from 'zod';
 import { ProfileTypes } from '@/components/forms/create-profile/__mocks__';
 import { validatePhoneNumber } from '@/utils/formatters';
 
+import { useRouter } from 'next-nprogress-bar';
+import { toast } from 'sonner';
 import StepEmail from './components/step-email';
 import StepName from './components/step-name';
 import StepPassword from './components/step-password';
@@ -51,6 +56,9 @@ type StepFormProps = {
 
 export default function StepForm({ onStepChange }: StepFormProps) {
   const [step, setStep] = useState(0);
+  const router = useRouter();
+
+  const [createProfessional] = useMutation(CREATE_PROFILE);
 
   const methods = useForm({
     resolver: zodResolver(formSchema),
@@ -68,15 +76,33 @@ export default function StepForm({ onStepChange }: StepFormProps) {
   const nextStep = () => setStep((prev) => prev + 1);
   const prevStep = () => setStep((prev) => prev - 1);
 
-  const onSubmit = (data: FormSchema) => {
+  const onSubmit = async (data: FormSchema) => {
     const payload = {
       fullName: data.name,
       email: data.email,
       password: data.password,
       profileType: data.profileType,
       contacts: [{ type: 'phone', value: data.phone.replace(/\D/g, '') }],
+      gender: 'NOT_INFORMED',
+      birthDate: new Date(
+        new Date().setFullYear(new Date().getFullYear() - 20)
+      ).toISOString(),
     };
-    console.log(data, payload, 'data submited');
+
+    try {
+      const variables = {
+        data: payload,
+      };
+
+      createProfessional({ variables });
+      router.push('/login');
+      toast.success('Perfil cadastrado com sucesso!', {
+        duration: 8000,
+      });
+    } catch (error) {
+      console.error(error);
+      toast.error('Erro ao cadastrar perfil. Tente novamente mais tarde.');
+    }
   };
 
   useEffect(() => {

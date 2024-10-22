@@ -19,7 +19,7 @@ export default function StepPassword({
 
   const watchPassword = watch('password');
   const handleNextStep = () => {
-    if (!errors.password || !errors.confirmPassword || watchPassword !== '') {
+    if (!errors || watchPassword !== '') {
       nextStep && nextStep();
     }
   };
