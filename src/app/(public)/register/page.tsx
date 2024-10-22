@@ -22,19 +22,19 @@ export default function RegisterPage() {
           width={48}
           height={48}
         />
-        <span className='text-3xl'>zeloclub</span>
+        <h1 className='text-3xl'>zeloclub</h1>
       </Link>
 
       {/* Seção de imagem/gradiente */}
-      <section className=' w-1/3 p-8  relative hidden md:flex '>
+      <section className='w-1/3 p-8 bg-brand-100/25 relative hidden md:flex '>
         <div className='flex pt-48  h-full'>
           <SidebarSteps currentStep={step} />
         </div>
       </section>
 
       {/* Seção do formulário */}
-      <section className='flex flex-col w-full md:w-2/3   bg-brand-100/50 items-center justify-center p-10 relative'>
-        <div className='absolute w-6 h-full -left-6 bg-brand-100/50 rounded-tl-3xl rounded-bl-3xl' />
+      <section className='flex flex-col w-full md:w-2/3 bg-white items-center justify-center p-10 relative'>
+        <div className='absolute w-6 h-full -left-6 bg-white rounded-tl-3xl rounded-bl-3xl' />
         <div className='flex flex-col justify-center w-full h-full max-w-lg space-y-8'>
           <StepForm onStepChange={(step) => setStep(step + 1)} />
         </div>

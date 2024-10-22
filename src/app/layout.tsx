@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Raleway } from 'next/font/google';
 import localFont from 'next/font/local';
 
 import { GoogleTagManager } from '@next/third-parties/google';
@@ -16,6 +17,13 @@ const roxborough = localFont({
   src: '../assets/fonts/roxborough-cf-bold.ttf',
   weight: 'bold',
   variable: '--font-roxborough',
+});
+
+const raleway = Raleway({
+  variable: '--font-raleway',
+  subsets: ['latin'],
+  weight: ['200', '400', '700'],
+  style: ['normal', 'italic'],
 });
 
 export const metadata: Metadata = {
@@ -66,7 +74,7 @@ export default function RootLayout({
       <GoogleTagManager gtmId='GTM-PJLSTC5R' />
 
       <body
-        className={`${alice.variable} ${roxborough.variable} font-sans `}
+        className={`${alice.variable} ${raleway.variable} ${roxborough.variable} font-sans `}
         suppressHydrationWarning={true}
       >
         <Providers>

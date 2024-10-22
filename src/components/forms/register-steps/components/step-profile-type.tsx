@@ -30,13 +30,13 @@ export default function StepProfileType({
 
   return (
     <div className='flex flex-col gap-2'>
-      <h2 className='text-xl mb-8'>
+      <h2 className='mb-8 text-xl'>
         O que você deseja fazer com o seu perfil?
       </h2>
       <RadioGroup
         defaultValue={profileType}
         onValueChange={(value) => handleProfileType(value as ProfileType)}
-        className='flex flex-row '
+        className='flex flex-row'
       >
         <Label
           htmlFor={ProfileTypes[1]}
@@ -53,9 +53,9 @@ export default function StepProfileType({
               className='hidden'
             />
             {profileType === ProfileTypes[1] && (
-              <CheckCircle2Icon className='absolute top-2 right-2 w-6 h-6 text-white fill-brand-400' />
+              <CheckCircle2Icon className='top-2 right-2 absolute w-6 h-6 text-white fill-brand-400' />
             )}
-            <span className='text-sm text-slate-500'>
+            <span className='text-slate-500 text-sm'>
               Se você busca por cuidadores para você ou alguém da sua família.
             </span>
           </div>
@@ -75,16 +75,16 @@ export default function StepProfileType({
               className='hidden'
             />
             {profileType === ProfileTypes[0] && (
-              <CheckCircle2Icon className='absolute top-2 right-2 w-6 h-6 text-white fill-brand-400' />
+              <CheckCircle2Icon className='top-2 right-2 absolute w-6 h-6 text-white fill-brand-400' />
             )}
-            <span className='text-sm text-slate-500'>
+            <span className='text-slate-500 text-sm'>
               Se você é um profissional de saúde e deseja atender pacientes.
             </span>
           </div>
         </Label>
       </RadioGroup>
 
-      <div className='flex flex-row justify-end mt-8 gap-2'>
+      <div className='flex flex-row justify-end gap-2 mt-8'>
         <Button variant={'outline'} type='button' onClick={prevStep}>
           Voltar
         </Button>

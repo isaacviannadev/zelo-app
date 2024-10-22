@@ -19,7 +19,8 @@ const config = {
     },
     extend: {
       fontFamily: {
-        sans: 'var(--font-alice)',
+        sans: 'var(--font-raleway)',
+        serif: 'var(--font-alice)',
         alt: 'var(--font-roxborough)',
       },
       colors: {
