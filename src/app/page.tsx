@@ -1,5 +1,5 @@
-import AdminLogin from './(public)/login/page';
+import Landing from './(public)/landing/page';
 
 export default function Home() {
-  return <AdminLogin />;
+  return <Landing />;
 }

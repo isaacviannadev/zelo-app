@@ -1,14 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
-
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { CheckIcon, ChevronsUpDown, Eraser } from 'lucide-react';
-import { Pill } from './pill';
-
 import { Option } from '@/types';
+import { CheckIcon, ChevronsUpDown, Eraser } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Pill } from './pill';
 
 type MultiSelectProps = {
   options: Option[];
@@ -22,14 +20,25 @@ const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>(
     const [highlightedIndex, setHighlightedIndex] = useState<number | null>(
       null
     );
+    const [searchInput, setSearchInput] = useState('');
     const wrapperRef = useRef<HTMLDivElement>(null);
+    const searchInputRef = useRef<HTMLInputElement>(null);
+
+    const filteredOptions = options.filter((option) =>
+      option.label.toLowerCase().includes(searchInput.toLowerCase())
+    );
 
     const handleToggle = () => {
       setIsOpen(!isOpen);
+      if (!isOpen) {
+        setTimeout(() => {
+          searchInputRef.current?.focus();
+        }, 0);
+      }
     };
 
     const handleSelect = (value: Option) => {
-      if (selectedValues.filter((v) => v.value === value.value).length > 0) {
+      if (selectedValues.some((v) => v.value === value.value)) {
         onChange(selectedValues.filter((v) => v.value !== value.value));
       } else {
         onChange([...selectedValues, value]);
@@ -47,20 +56,19 @@ const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>(
       } else if (event.key === 'ArrowDown') {
         event.preventDefault();
         setHighlightedIndex((prev) =>
-          prev === null ? 0 : Math.min(prev + 1, options.length - 1)
+          prev === null ? 0 : Math.min(prev + 1, filteredOptions.length - 1)
         );
       } else if (event.key === 'ArrowUp') {
         event.preventDefault();
         setHighlightedIndex((prev) =>
-          prev === null ? options.length - 1 : Math.max(prev - 1, 0)
+          prev === null ? filteredOptions.length - 1 : Math.max(prev - 1, 0)
         );
       } else if (
         (event.key === 'Enter' || event.key === ' ') &&
         highlightedIndex !== null
       ) {
         event.preventDefault();
-
-        handleSelect(options[highlightedIndex]);
+        handleSelect(filteredOptions[highlightedIndex]);
       }
     };
 
@@ -76,13 +84,23 @@ const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>(
       };
 
       document.addEventListener('mousedown', handleClickOutside);
-      document.addEventListener('keydown', handleKeyDown);
 
       return () => {
         document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, []);
+
+    useEffect(() => {
+      if (isOpen) {
+        document.addEventListener('keydown', handleKeyDown);
+      } else {
+        document.removeEventListener('keydown', handleKeyDown);
+      }
+
+      return () => {
         document.removeEventListener('keydown', handleKeyDown);
       };
-    }, [highlightedIndex, options]);
+    }, [isOpen, highlightedIndex, filteredOptions]);
 
     return (
       <div className='relative' ref={wrapperRef}>
@@ -122,34 +140,43 @@ const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>(
         </button>
         {isOpen && (
           <div className='absolute border rounded-md mt-1 w-full bg-white z-10 p-1'>
-            {options.map((option, index) => (
-              <div
-                key={option.value}
-                className={`p-2 hover:bg-gray-50 cursor-pointer ${
-                  highlightedIndex === index ? 'bg-gray-100' : ''
-                }`}
-                onClick={() => handleSelect(option)}
-              >
-                <input
-                  type='checkbox'
-                  checked={
-                    selectedValues.filter((v) => v.value === option.value)
-                      .length > 0
-                  }
-                  onChange={() => handleSelect(option)}
-                  className='mr-2 hidden'
-                />
-                <div className='flex flex-row w-full items-center gap-2'>
-                  {selectedValues.filter((v) => v.value === option.value)
-                    .length > 0 ? (
-                    <CheckIcon className='text-brand-500 h-4 w-4' />
-                  ) : (
-                    <div></div>
-                  )}
-                  {option.label}
+            <input
+              type='text'
+              placeholder='Buscar...'
+              value={searchInput}
+              onChange={(e) => {
+                setSearchInput(e.target.value);
+                setHighlightedIndex(0);
+              }}
+              ref={searchInputRef}
+              className='w-full p-2 border-b border-gray-200 focus:outline-none'
+            />
+            <div className='max-h-60 overflow-y-auto'>
+              {filteredOptions.length > 0 ? (
+                filteredOptions.map((option, index) => (
+                  <div
+                    key={option.value}
+                    className={`p-2 hover:bg-gray-50 cursor-pointer ${
+                      highlightedIndex === index ? 'bg-gray-100' : ''
+                    }`}
+                    onClick={() => handleSelect(option)}
+                  >
+                    <div className='flex flex-row w-full items-center gap-2'>
+                      {selectedValues.some((v) => v.value === option.value) ? (
+                        <CheckIcon className='text-brand-500 h-4 w-4' />
+                      ) : (
+                        <div className='w-4 h-4' />
+                      )}
+                      {option.label}
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className='p-2 text-gray-500'>
+                  Nenhuma opção encontrada
                 </div>
-              </div>
-            ))}
+              )}
+            </div>
           </div>
         )}
       </div>
