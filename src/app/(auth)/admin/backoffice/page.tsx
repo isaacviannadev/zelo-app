@@ -3,7 +3,7 @@ import CreateProfileForm from '@/components/forms/create-profile';
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import { City, State } from '@/types';
 
-export async function Customers() {
+async function Backoffice() {
   const states: State[] = await getStates();
   const cities: City[] = await getAllCities();
 
@@ -24,4 +24,4 @@ export async function Customers() {
   );
 }
 
-export default Customers;
+export default Backoffice;

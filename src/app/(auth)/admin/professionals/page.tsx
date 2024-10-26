@@ -3,7 +3,7 @@ import CreateProfileForm from '@/components/forms/create-profile';
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import { City, State } from '@/types';
 
-export async function Professionals() {
+async function Professionals() {
   const states: State[] = await getStates();
   const cities: City[] = await getAllCities();
 

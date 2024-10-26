@@ -12,7 +12,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-export function ListProfessionals() {
+function ListProfessionals() {
   return (
     <div className='grid gap-6'>
       <Card id='cuidadores'>
