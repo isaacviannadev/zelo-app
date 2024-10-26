@@ -15,6 +15,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { PasswordInput } from '@/components/ui/password-input';
 import { AuthContext } from '@/contexts/AuthContext';
 import { Loader2, LockIcon, MailIcon } from 'lucide-react';
 import { useContext } from 'react';
@@ -111,12 +112,11 @@ export default function AdminLogin() {
                       <FormControl>
                         <div className='relative'>
                           <LockIcon
-                            className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400'
+                            className='absolute left-3 top-1/2 transform -translate-y-1/2 z-10 text-gray-400'
                             size={20}
                           />
-                          <Input
+                          <PasswordInput
                             id='password'
-                            type='password'
                             autoComplete='current-password'
                             className='pl-10 rounded-b-md'
                             placeholder='Senha'
