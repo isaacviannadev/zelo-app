@@ -48,7 +48,7 @@ export default async function AdminArea() {
     <div className='min-h-screen bg-gray-100 flex flex-col dark:bg-gray-900'>
       <main className='flex-1 flex '>
         <aside className='bg-white border-r w-64 py-6 shrink-0 dark:bg-gray-800 relative'>
-          <div className='px-4 space-y-4 sticky top-4'>
+          <div className='px-4 space-y-4 sticky top-20'>
             <div>
               <h2 className='text-xs font-semibold text-gray-500 uppercase tracking-wide dark:text-gray-400'>
                 Gerenciar
