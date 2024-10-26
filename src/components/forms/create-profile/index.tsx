@@ -679,6 +679,7 @@ export default function CreateProfileForm({
                       <Button
                         type='button'
                         variant='outline'
+                        className='flex mt-8'
                         onClick={() => removeAvailability(index)}
                       >
                         <TrashIcon className='h-4 w-4 text-red-700' />
@@ -821,7 +822,7 @@ export default function CreateProfileForm({
             </div>
 
             {contactFields.map((field, index) => (
-              <div key={field.id} className='flex gap-4'>
+              <div key={field.id} className='flex w-full items-start gap-4 '>
                 <FormField
                   control={form.control}
                   name={`contacts.${index}.type`}
@@ -868,6 +869,7 @@ export default function CreateProfileForm({
                   <Button
                     type='button'
                     variant='outline'
+                    className='flex mt-8'
                     onClick={() => removeContact(index)}
                   >
                     <TrashIcon className='h-4 w-4 text-red-700' />

@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { phoneMask } from '@/utils/formatters';
+import { phoneNumberMask } from '@/utils/phoneNumberMask';
 import { CircleAlert } from 'lucide-react';
 import { useFormContext } from 'react-hook-form';
 import { StepsProps } from '../types';
@@ -33,7 +33,7 @@ export default function StepPhone({ nextStep, prevStep }: Partial<StepsProps>) {
         autoFocus
         {...register('phone', {
           onChange: (e) => {
-            e.target.value = phoneMask(e.target.value);
+            e.target.value = phoneNumberMask(e.target.value);
           },
         })}
       />
