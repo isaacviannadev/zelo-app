@@ -71,7 +71,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <Head />
-      <GoogleTagManager gtmId='GTM-PJLSTC5R' />
+      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID ?? ''} />
 
       <body
         className={`${alice.variable} ${raleway.variable} ${roxborough.variable} font-sans `}
@@ -85,7 +85,7 @@ export default function RootLayout({
         <noscript>
           <iframe
             title='Google Tag Manager zeloclub'
-            src='https://www.googletagmanager.com/ns.html?id=GTM-PJLSTC5R'
+            src={`https://www.googletagmanager.com/ns.html?id=${process.env.NEXT_PUBLIC_GTM_ID}`}
             height='0'
             width='0'
             style={{ display: 'none', visibility: 'hidden' }}
