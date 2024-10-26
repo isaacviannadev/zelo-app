@@ -1,9 +1,15 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { CircleAlert } from 'lucide-react';
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { PasswordInput } from '@/components/ui/password-input';
+import { CircleAlert, LockIcon } from 'lucide-react';
 import { useFormContext } from 'react-hook-form';
 import { StepsProps } from '../types';
 
@@ -12,7 +18,7 @@ export default function StepPassword({
   prevStep,
 }: Partial<StepsProps>) {
   const {
-    register,
+    control,
     watch,
     formState: { errors },
   } = useFormContext();
@@ -27,18 +33,60 @@ export default function StepPassword({
   return (
     <div className='flex flex-col gap-2'>
       <h2 className='text-xl mb-8'>Defina uma senha para acessar sua conta</h2>
-      <Label htmlFor='password'>Senha</Label>
-      <Input
-        id='password'
-        type='password'
-        {...register('password')}
-        autoFocus
+      <FormField
+        control={control}
+        name='password'
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel htmlFor='password' className='sr-only'>
+              Senha
+            </FormLabel>
+            <FormControl>
+              <div className='relative'>
+                <LockIcon
+                  className='absolute left-3 top-1/2 transform -translate-y-1/2 z-10 text-gray-400'
+                  size={20}
+                />
+                <PasswordInput
+                  id='password'
+                  autoComplete='current-password'
+                  className='pl-10 rounded-b-md'
+                  placeholder='Senha'
+                  {...field}
+                />
+              </div>
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
       />
-      <Label htmlFor='confirmPassword'>Confirmar Senha</Label>
-      <Input
-        id='confirmPassword'
-        type='password'
-        {...register('confirmPassword')}
+
+      <FormField
+        control={control}
+        name='confirmPassword'
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel htmlFor='confirmPassword' className='sr-only'>
+              Confirmar Senha
+            </FormLabel>
+            <FormControl>
+              <div className='relative'>
+                <LockIcon
+                  className='absolute left-3 top-1/2 transform -translate-y-1/2 z-10 text-gray-400'
+                  size={20}
+                />
+                <PasswordInput
+                  id='confirmPassword'
+                  autoComplete='current-password'
+                  className='pl-10 rounded-b-md'
+                  placeholder='Senha'
+                  {...field}
+                />
+              </div>
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
       />
 
       {errors.password && (

@@ -59,7 +59,7 @@ const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>(
         highlightedIndex !== null
       ) {
         event.preventDefault();
-        
+
         handleSelect(options[highlightedIndex]);
       }
     };
@@ -103,7 +103,7 @@ const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>(
         <button
           type='button'
           onClick={handleToggle}
-          className='flex items-center border rounded-md p-2 w-full text-left justify-between focus:outline-none focus:ring-2 focus:ring-zinc-950 focus:ring-offset-2'
+          className='flex items-center border border-brand-200 rounded-md p-2 w-full text-left justify-between focus:outline-none focus:ring-2 focus:ring-brand-900 focus:ring-offset-2'
           ref={ref}
           {...props}
         >
