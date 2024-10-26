@@ -11,8 +11,8 @@ import { FormProvider, useForm } from 'react-hook-form';
 import * as z from 'zod';
 
 import { ProfileTypes } from '@/components/forms/create-profile/__mocks__';
-import { validatePhoneNumber } from '@/utils/formatters';
 
+import { validarTelefoneBR } from '@/utils/phoneNumberMask';
 import { useRouter } from 'next-nprogress-bar';
 import { toast } from 'sonner';
 import StepEmail from './components/step-email';
@@ -27,7 +27,7 @@ const formSchema = z
     phone: z
       .string({ required_error: 'Telefone é obrigatório' })
       .min(11, 'Deve conter pelo menos 11 dígitos')
-      .refine(validatePhoneNumber, {
+      .refine(validarTelefoneBR, {
         message: 'Telefone inválido',
       }),
     email: z

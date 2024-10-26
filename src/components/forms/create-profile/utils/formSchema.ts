@@ -1,3 +1,4 @@
+import { validarTelefoneBR } from '@/utils/phoneNumberMask';
 import { z } from 'zod';
 import {
   BrazilianState,
@@ -23,7 +24,9 @@ const contactsSchema = z.array(
   z.discriminatedUnion('type', [
     z.object({
       type: z.literal('PHONE'),
-      value: z.string().regex(/^\d{10,}$/, 'Número de telefone inválido'),
+      value: z.string().refine((telefone) => validarTelefoneBR(telefone), {
+        message: 'Número de telefone inválido.',
+      }),
     }),
     z.object({
       type: z.literal('EMAIL'),
@@ -31,7 +34,9 @@ const contactsSchema = z.array(
     }),
     z.object({
       type: z.literal('WHATSAPP'),
-      value: z.string().regex(/^\d{10,}$/, 'Número do WhatsApp inválido'),
+      value: z.string().refine((telefone) => validarTelefoneBR(telefone), {
+        message: 'Número de telefone inválido.',
+      }),
     }),
   ])
 );

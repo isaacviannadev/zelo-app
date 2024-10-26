@@ -57,6 +57,7 @@ import { servicesOptions } from '@/mocks/services';
 import { City, ProfileType, State } from '@/types';
 import { birthDateDefault } from '@/utils/constant';
 import { formatCep } from '@/utils/formatters';
+import { phoneNumberMask } from '@/utils/phoneNumberMask';
 import { formSchema } from './utils/formSchema';
 
 type FormValues = z.infer<typeof formSchema>;
@@ -133,6 +134,7 @@ export default function CreateProfileForm({
     control: form.control,
     name: 'contacts',
   });
+  const watchContacts = form.watch('contacts');
 
   const {
     fields: availabilityFields,
@@ -679,6 +681,7 @@ export default function CreateProfileForm({
                       <Button
                         type='button'
                         variant='outline'
+                        className='flex mt-8'
                         onClick={() => removeAvailability(index)}
                       >
                         <TrashIcon className='h-4 w-4 text-red-700' />
@@ -820,61 +823,84 @@ export default function CreateProfileForm({
               </Tooltip>
             </div>
 
-            {contactFields.map((field, index) => (
-              <div key={field.id} className='flex gap-4'>
-                <FormField
-                  control={form.control}
-                  name={`contacts.${index}.type`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Tipo de Contato</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
+            {contactFields.map((field, index) => {
+              const contactType = form.watch(`contacts.${index}.type`);
+
+              return (
+                <div key={field.id} className='flex w-full items-start gap-4 '>
+                  <FormField
+                    control={form.control}
+                    name={`contacts.${index}.type`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Tipo de Contato</FormLabel>
+                        <Select
+                          onValueChange={(value) => {
+                            field.onChange(value);
+                            form.setValue(`contacts.${index}.value`, '');
+                            form.clearErrors(`contacts.${index}.value`);
+                          }}
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder='Selecione o tipo' />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {ContactTypes.map((type) => (
+                              <SelectItem key={type} value={type}>
+                                {crossContactName[type]}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name={`contacts.${index}.value`}
+                    render={({ field }) => (
+                      <FormItem className='flex-grow'>
+                        <FormLabel>Valor do Contato</FormLabel>
                         <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder='Selecione o tipo' />
-                          </SelectTrigger>
+                          <Input
+                            {...field}
+                            onChange={({ target: { value } }) => {
+                              if (contactType !== 'EMAIL')
+                                return field.onChange(phoneNumberMask(value));
+
+                              field.onChange(value);
+                            }}
+                            type={contactType === 'EMAIL' ? 'email' : 'tel'}
+                            placeholder={
+                              contactType === 'EMAIL'
+                                ? 'email@email.com'
+                                : '(00) 00000-0000'
+                            }
+                          />
                         </FormControl>
-                        <SelectContent>
-                          {ContactTypes.map((type) => (
-                            <SelectItem key={type} value={type}>
-                              {crossContactName[type]}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-                <FormField
-                  control={form.control}
-                  name={`contacts.${index}.value`}
-                  render={({ field }) => (
-                    <FormItem className='flex-grow'>
-                      <FormLabel>Valor do Contato</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
+                  {contactFields.length > 1 && (
+                    <Button
+                      type='button'
+                      variant='outline'
+                      className='flex mt-8'
+                      onClick={() => removeContact(index)}
+                    >
+                      <TrashIcon className='h-4 w-4 text-red-700' />
+                    </Button>
                   )}
-                />
-
-                {contactFields.length > 1 && (
-                  <Button
-                    type='button'
-                    variant='outline'
-                    onClick={() => removeContact(index)}
-                  >
-                    <TrashIcon className='h-4 w-4 text-red-700' />
-                  </Button>
-                )}
-              </div>
-            ))}
+                </div>
+              );
+            })}
           </div>
 
           <Divider />
